@@ -97,9 +97,9 @@ public class FractalPanel extends JPanel implements MouseMotionListener, MouseLi
         Complex z = new Complex(0.0, 0.0);
         Complex c = new Complex(x, y);
 
-        for (int n = 0 ; n < 100 ; n++) {
+        for (int n = 0 ; n < 200 ; n++) {
             z = Complex.square(z).add(c);
-            if (z.greaterThan(10000)) {
+            if (z.greaterThan(100000)) {
                 return n;
             }
         }
