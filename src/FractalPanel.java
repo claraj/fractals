@@ -6,17 +6,21 @@ import java.awt.event.MouseMotionListener;
 import java.util.HashMap;
 
 /**
- * Created by admin on 9/26/16.
+ * Created by clara on 9/26/16.
  */
 public class FractalPanel extends JPanel implements MouseMotionListener, MouseListener{
 
     double graphX, graphY, graphWidth, graphHeight;
+    double frameX, frameY, frameWidth, frameHeight;
 
-
+    double zoomFactor = 10;  //Clicking on an area of the image zooms in 10x
 
     static HashMap<Integer, Color> colors;
 
-    public FractalPanel() {
+    FractalPanel() {
+
+        setInitialWindow();
+
         colors = new HashMap<Integer, Color>();
         colors.put(0, Color.orange);
         colors.put(1, Color.yellow);
@@ -27,52 +31,66 @@ public class FractalPanel extends JPanel implements MouseMotionListener, MouseLi
         colors.put(6, Color.pink);
         colors.put(7, Color.red);
 
+        addMouseListener(this);
+        addMouseMotionListener(this);
+    }
+
+    void setInitialWindow() {
+        //Pixels in Frame (window)
+        frameX = 0;
+        frameY = 0;
+        frameHeight = Mandlebrot.frameHeight;
+        frameWidth = Mandlebrot.frameWidth;
+
+        //The area of the graph being drawn
+        graphX = -2;
+        graphY = -2;
+        graphHeight = 4;
+        graphWidth = 4;    // -2 to +2
     }
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        //g.setColor(Color.blue);
-        //g.fillRect(10, 10, 500, 500);
+        System.out.println("Painting x start " +
+                graphX + " y start " +graphY +
+                "height " + graphHeight + " width " + graphWidth);
 
-        double height = Mandlebrot.frameHeight;
-        double width = Mandlebrot.frameWidth;
+        int pixelX = 0, pixelY = 0;
 
-        double rint, iint;
+        double xIncrement = graphWidth / frameWidth;
+        double yIncrement = graphHeight / frameHeight;
 
-        for (double drawX = 0 ; drawX < width ; drawX++) {
+        //System.out.println("graph x " + graphX + " graphwidth " + graphWidth + " framewid " + frameWidth + "  xinr " + xIncrement);
 
-            for (double drawY = 0 ; drawY < height ; drawY++) {
+        for (double x = graphX ; x <= graphWidth + graphX ; x += xIncrement) {
 
-                //Shift 0, 0 to center and scale from 0 - 200 to -100 to +100
-                //Actually to -2 to +2
+            for (double y = graphY ; y <= graphHeight + graphY ; y += yIncrement) {
 
-                rint = drawX - width/2;
-                iint = drawY - height/2;
+                int color = converge(x, y);
+                if (color == 0) { g.setColor(Color.black);}
+                else { g.setColor(colors.get(color % 8));}
+                g.drawRect(pixelX, pixelY, 1, 1);
 
-                double r = rint/50;
-                double i = iint/50;
+                //System.out.println("pixel x " + pixelX + " y " + pixelY + " y " + y + " graphY " + graphY + " graphHeight " + graphHeight + " yincr " + yIncrement);
 
-                System.out.println(r + " " + i);
-
-                int color = converge(r, i);
-
-                if (color == 0) {
-                    g.setColor(Color.black);
-                } else {
-                    g.setColor(colors.get(color % 8));
-                }
-                g.drawRect((int)drawX, (int)drawY, 1, 1);
+                pixelY++;
 
             }
+
+            pixelY = 0;
+            //System.out.println("pixel x " + pixelX + " y " + pixelY);
+
+            pixelX++;
         }
+
+        System.out.println("Total pixels " + pixelX + " " + pixelY);
 
     }
 
     //x is real, y is imaginary
     private int converge(double x, double y) {
-
 
         //Does zz + c converge or not?
 
@@ -80,35 +98,100 @@ public class FractalPanel extends JPanel implements MouseMotionListener, MouseLi
         Complex c = new Complex(x, y);
 
         for (int n = 0 ; n < 100 ; n++) {
-
             z = Complex.square(z).add(c);
             if (z.greaterThan(10000)) {
-                System.out.println(n);
                 return n;
-
             }
-
         }
 
-
-
-        return 0;
+        //If no convergence after 100 iterations, assume does not converge.
+        return 0;   //This is a weird scale.
 
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
         //TODO zoom
+
+        switch (e.getButton()) {
+
+            case 1: {
+
+                System.out.println("Mouse click " + e);
+                int xClick = e.getX();
+                int yClick = e.getY();
+
+                //Initially frame is -2 -> +2 = 4 wide
+                //Click to zoom in to 0.4 wide
+                //if xClick at 450, new x graph = 1.0 -> 1.4
+                //x and y are based on x, y click location
+
+                // graphX is the where the graph plot starts, initially at -2
+
+                graphX =  graphX + ( ( xClick / frameWidth ) * graphWidth );
+                graphY =  graphY + ( ( yClick / frameHeight ) * graphHeight );
+
+                graphHeight = graphHeight / zoomFactor;
+                graphWidth = graphWidth / zoomFactor;
+
+                graphX = graphX - (graphWidth / 2);
+                graphY = graphY - (graphHeight / 2);
+
+                System.out.println("X " + graphX + " y " + graphY + " width " + graphWidth + " height " + graphHeight);
+
+                repaint();  //redraw.
+
+                break;
+            }
+
+            case 2: { // fall through to case 3
+             }
+
+            case 3: {
+                //zoom out to start
+                setInitialWindow();
+                repaint();
+            }
+        }
+
     }
+
+
+    boolean dragging = false;
+    int clickX, clickY;
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        System.out.println("Mouse pressed " + e);
+        dragging = true;
+        clickX = e.getX();
+        clickY = e.getY();
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        System.out.println("Mouse released " + e);
 
+        //TODO - this doesn't work as intended :)
+        //TODO boundaries for dragging
+
+        dragging = false;
+        if (e.getX() == clickX && e.getY() == clickY) {
+            //A click - ignore
+        } else {
+            //re-center on this event
+
+            graphX =  graphX + ( ( e.getX() / frameWidth ) * graphWidth );
+            graphY =  graphY + ( ( e.getX() / frameHeight ) * graphHeight );
+
+            graphX = graphX - (graphWidth / 2);
+            graphY = graphY - (graphHeight / 2);
+
+            System.out.println("X " + graphX + " y " + graphY + " width " + graphWidth + " height " + graphHeight);
+
+            repaint();  //redraw.
+
+        }
     }
 
     @Override
@@ -125,6 +208,9 @@ public class FractalPanel extends JPanel implements MouseMotionListener, MouseLi
     public void mouseDragged(MouseEvent e) {
 
         //TODO scroll
+        System.out.println("Mouse drag " + e);
+
+        //Keep size same, move center to mouse
 
     }
 

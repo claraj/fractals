@@ -5,8 +5,8 @@ import javax.swing.*;
  */
 public class Mandlebrot {
 
-    static int frameWidth = 200;
-    static int frameHeight = 200;
+    static int frameWidth = 400;
+    static int frameHeight = 400;
 
     public static void main(String[] args) {
 

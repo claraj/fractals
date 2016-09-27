@@ -1,7 +1,6 @@
-import java.util.DoubleSummaryStatistics;
 
 /**
- * Created by admin on 9/26/16.
+ * Created by clara on 9/26/16.
  */
 public class Complex {
 
