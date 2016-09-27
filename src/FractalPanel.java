@@ -173,14 +173,12 @@ public class FractalPanel extends JPanel implements MouseMotionListener, MouseLi
         System.out.println("Mouse released " + e);
 
         //TODO - this doesn't work as intended :)
-        //TODO boundaries for dragging
 
         dragging = false;
         if (e.getX() == clickX && e.getY() == clickY) {
             //A click - ignore
         } else {
-            //re-center on this event
-
+            //todo this isn't the right thing to do
             graphX =  graphX + ( ( e.getX() / frameWidth ) * graphWidth );
             graphY =  graphY + ( ( e.getX() / frameHeight ) * graphHeight );
 
