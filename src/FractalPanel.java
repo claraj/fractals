@@ -72,12 +72,13 @@ public class FractalPanel extends JPanel implements MouseMotionListener, MouseLi
 
             for (double y = graphY ; y <= graphHeight + graphY ; y += yIncrement) {
 
-                //int color = mandlebrotConverge(x, y);
-                int color = burningShipConverge(x, y);
+                int color = mandlebrotConverge(x, y);
+                //int color = burningShipConverge(x, y);
                 if (color == 0) { g.setColor(Color.black);}
 
                 else {
                     //Make wider color bands - 0-50 is one color, 50-100 is another ...
+                    //These look good on the ship, but you've got to start zooming on the mandlebrot
                     int colorWideBand = (int) (color / 50) ;
                     g.setColor(colors.get(colorWideBand % colors.size()));
 
