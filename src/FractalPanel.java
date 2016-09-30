@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -162,7 +163,7 @@ public class FractalPanel extends JPanel{
 
     }
 
-    //TODO if background task running, stop it
+    // if background task running, stop it
 
     //* this method is called when user double-clicks so want to stop any tasks running.
 
@@ -173,7 +174,7 @@ public class FractalPanel extends JPanel{
 
         for (Thread thread : threads) {
             if (thread != null) {
-                System.out.println("calculations running, interrupting");
+                System.out.println("calculations running, interrupting");   //todo is this working?
                 thread.interrupt();
             }
         }
@@ -183,6 +184,9 @@ public class FractalPanel extends JPanel{
 
         int i = 50;
         long conv = 1000l;
+
+        //todo more iterations for larger zoom levels?
+
         for (int x = 0 ; x < 5 ; x++){
 
             Thread thread = new Thread(new FractalCalcs(i*=5, conv*=50));
@@ -197,6 +201,7 @@ public class FractalPanel extends JPanel{
     }
 
 
+    //so in theory, the threads will take longer and longer, and
     LinkedList<int[][]> pixelsToDraw = new LinkedList<int[][]>();
 
     class FractalCalcs implements Runnable {
@@ -214,8 +219,8 @@ public class FractalPanel extends JPanel{
             System.out.println("Iterations = " + iterations + " convergence test = " + convergenceTest);
             int[][] pixelValues = testConvergences(iterations, convergenceTest);
             pixelsToDraw.add(0, pixelValues);     //todo what are the queue methods called?
+            System.out.println("Thread with Iterations = " + iterations + " convergence test = " + convergenceTest + " requests paint");
             repaint();   // <= but with pixelvalues
-            System.out.println("paint 1");
 
 
             System.out.println("background thread done at " + System.nanoTime());
