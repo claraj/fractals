@@ -7,13 +7,17 @@ import java.util.HashMap;
 
 /**
  * Created by clara on 9/26/16.
+ *
+ * Mandlebrot set, and Burning Ship fractal
  */
 public class FractalPanel extends JPanel implements MouseMotionListener, MouseListener{
 
     double graphX, graphY, graphWidth, graphHeight;
     double frameX, frameY, frameWidth, frameHeight;
 
-    double zoomFactor = 10;  //Clicking on an area of the image zooms in 10x
+    double zoomFactor = 5;  //Clicking on an area of the image zooms in 10x
+
+    int zoom = 1;   //number of times zoomed in
 
     static HashMap<Integer, Color> colors;
 
@@ -68,9 +72,17 @@ public class FractalPanel extends JPanel implements MouseMotionListener, MouseLi
 
             for (double y = graphY ; y <= graphHeight + graphY ; y += yIncrement) {
 
-                int color = converge(x, y);
+                //int color = mandlebrotConverge(x, y);
+                int color = burningShipConverge(x, y);
                 if (color == 0) { g.setColor(Color.black);}
-                else { g.setColor(colors.get(color % 8));}
+
+                else {
+                    //Make wider color bands - 0-50 is one color, 50-100 is another ...
+                    int colorWideBand = (int) (color / 50) ;
+                    g.setColor(colors.get(colorWideBand % colors.size()));
+
+//                    g.setColor(colors.get(color % colors.size()));
+                }
                 g.drawRect(pixelX, pixelY, 1, 1);
 
                 //System.out.println("pixel x " + pixelX + " y " + pixelY + " y " + y + " graphY " + graphY + " graphHeight " + graphHeight + " yincr " + yIncrement);
@@ -90,24 +102,56 @@ public class FractalPanel extends JPanel implements MouseMotionListener, MouseLi
     }
 
     //x is real, y is imaginary
-    private int converge(double x, double y) {
+    private int mandlebrotConverge(double x, double y) {
 
+        int iterations = zoom * 40;              //More detail, the more iterations. This definitely matters
+                                            //TODO run this function with a smaller iterations, and then increase it and repaint
+                                                ///TODO needs to be in Async so can be interrupted.
+                                            //TODO larger bands for drawing colors with higher iterations to get bands rather than noise
+        int decidedNotConverge = zoom * 100;        // todo experiment with this.
         //Does zz + c converge or not?
 
         Complex z = new Complex(0.0, 0.0);
         Complex c = new Complex(x, y);
 
-        for (int n = 0 ; n < 200 ; n++) {
+        for (int n = 0 ; n < iterations ; n++) {
             z = Complex.square(z).add(c);
-            if (z.greaterThan(100000)) {
+            if (z.greaterThan(decidedNotConverge)) {
                 return n;
             }
         }
 
-        //If no convergence after 100 iterations, assume does not converge.
+        //If no convergence after a load of iterations, assume does not converge.
         return 0;   //This is a weird scale.
 
     }
+
+
+    private int burningShipConverge(double x, double y) {
+
+            //function is
+
+        // square of ( abs(real part of zn ) + abs(img part of zn ) ) + c = zn+1     <- z n+1 subscript.
+
+
+        int iterations = 3000;
+        long decidedNotConverge = 100000000000l;        // todo experiment with this.
+
+        Complex z = new Complex(0.0, 0.0);
+        Complex c = new Complex(x, y);
+
+        for (int n = 0 ; n < iterations ; n++) {
+            z = Complex.absSquare(z).add(c);
+            if (z.greaterThan(decidedNotConverge)) {
+                return n;
+            }
+        }
+
+        //If no convergence after a load of iterations, assume does not converge.
+        return 0;   //This is a weird scale.
+
+    }
+
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -141,6 +185,8 @@ public class FractalPanel extends JPanel implements MouseMotionListener, MouseLi
 
                 repaint();  //redraw.
 
+                zoom *= 5;
+
                 break;
             }
 
@@ -149,6 +195,7 @@ public class FractalPanel extends JPanel implements MouseMotionListener, MouseLi
 
             case 3: {
                 //zoom out to start
+                zoom = 1;
                 setInitialWindow();
                 repaint();
             }

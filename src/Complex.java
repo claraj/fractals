@@ -19,6 +19,18 @@ public class Complex {
 
     }
 
+
+    public static Complex absSquare(Complex z) {
+
+        double x = Math.abs(z.real);
+        double y = Math.abs(z.imaginary);
+
+        //Same square
+
+        return new Complex(x*x - y*y , 2*x*y);
+
+    }
+
     public static Complex square(Complex z) {
 
         double x = z.real;
