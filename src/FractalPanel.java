@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 /**
  * Created by clara on 9/26/16.
@@ -16,7 +17,7 @@ public class FractalPanel extends JPanel{
 
     int zoom = 1;   //number of times zoomed in
 
-    int[][] pixelValues;
+    //int[][] pixelValues;
 
     static HashMap<Integer, Color> colors;
 
@@ -71,10 +72,18 @@ public class FractalPanel extends JPanel{
 
         System.out.println("Painting is painting");
 
-        if (pixelValues == null) {
-            g.drawString("hello", 100, 100);
+        if (pixelsToDraw == null || pixelsToDraw.peek() == null) {
+            g.drawString("nothing to draw", 100, 100);
             return;
+
         }
+
+        int[][] pixelValues = pixelsToDraw.remove();   //remove from end of queue
+
+//        if (pixelValues == null) {
+//            g.drawString("nothing to draw", 100, 100);
+//            return;
+//        }
 
 //        System.out.println("Painting x start " +
 //                graphX + " y start " +graphY +
@@ -157,25 +166,28 @@ public class FractalPanel extends JPanel{
 
     //* this method is called when user double-clicks so want to stop any tasks running.
 
-    Thread thread;
+    LinkedList<Thread> threads = new LinkedList<Thread>();
 
     public void notifyCoordinatesUpdated() {
-        //Calculate pixel values and then repaint
+        //Calculate pixel values. when done  repaint
 
-
-        //testConvergences(2000, 1000000000);
-
-        if (thread != null) {
-            System.out.println("calculations running, interrupting");
-            thread.interrupt();
+        for (Thread thread : threads) {
+            if (thread != null) {
+                System.out.println("calculations running, interrupting");
+                thread.interrupt();
+            }
         }
+
+        threads = new LinkedList<Thread>();
+
 
         int i = 50;
         long conv = 1000l;
         for (int x = 0 ; x < 5 ; x++){
 
-            thread = new Thread(new FractalCalcs(i*=5, conv*=5));
+            Thread thread = new Thread(new FractalCalcs(i*=5, conv*=50));
             thread.start();
+            threads.push(thread);
 
         }
 
@@ -184,6 +196,8 @@ public class FractalPanel extends JPanel{
         //repaint();
     }
 
+
+    LinkedList<int[][]> pixelsToDraw = new LinkedList<int[][]>();
 
     class FractalCalcs implements Runnable {
 
@@ -198,32 +212,11 @@ public class FractalPanel extends JPanel{
 
             System.out.println("background thread starts as " + System.nanoTime());
             System.out.println("Iterations = " + iterations + " convergence test = " + convergenceTest);
-            testConvergences(iterations, convergenceTest);
-            repaint();
+            int[][] pixelValues = testConvergences(iterations, convergenceTest);
+            pixelsToDraw.add(0, pixelValues);     //todo what are the queue methods called?
+            repaint();   // <= but with pixelvalues
             System.out.println("paint 1");
-//
-//            //spawn paint thread? Swing doesn't do this?
-//            new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    System.out.println("background paint");
-//                    repaint();
-//                }
-//            }).start();
-//
-//            testConvergences(500, 10000000);
-//            System.out.println("paint 2");
-//
-//            repaint();
-//
-//            testConvergences(1000, 1000000000);
-//
-//            System.out.println("paint 3");
-//            repaint();
-//
-//            testConvergences(2000, 1000000000);
-//            System.out.println("paint 4");
-//            repaint();
+
 
             System.out.println("background thread done at " + System.nanoTime());
 
@@ -231,9 +224,9 @@ public class FractalPanel extends JPanel{
     }
 
     //This is the slow part. Test each thing for convergence and fill 2d array with pixels.
-    private void testConvergences(int iterations, long convergenceLimit) {
+    private int[][] testConvergences(int iterations, long convergenceLimit) {
 
-        pixelValues = new int[Fractal.frameHeight][Fractal.frameWidth];
+        int[][] pixelValues = new int[Fractal.frameHeight][Fractal.frameWidth];
 
         int pixelX = 0, pixelY = 0;
 
@@ -281,6 +274,9 @@ public class FractalPanel extends JPanel{
 
 
         System.out.println("*************************** aie count " + aieCount);
+
+
+        return pixelValues;
 
     }
 
