@@ -63,6 +63,7 @@ public class MouseEventsListener extends MouseAdapter {
                 panel.zoom = 1;
 
                 panel.setInitialWindow();
+
                 panel.notifyCoordinatesUpdated();
             }
         }

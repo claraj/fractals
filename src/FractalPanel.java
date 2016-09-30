@@ -69,22 +69,16 @@ public class FractalPanel extends JPanel{
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
+        System.out.println("Painting is painting");
+
         if (pixelValues == null) {
             g.drawString("hello", 100, 100);
             return;
         }
 
-        System.out.println("Painting x start " +
-                graphX + " y start " +graphY +
-                "height " + graphHeight + " width " + graphWidth);
-
-//        int pixelX = 0, pixelY = 0;
-//
-//        double xIncrement = graphWidth / frameWidth;
-//        double yIncrement = graphHeight / frameHeight;
-
-        //System.out.println("graph x " + graphX + " graphwidth " + graphWidth + " framewid " + frameWidth + "  xinr " + xIncrement);
-
+//        System.out.println("Painting x start " +
+//                graphX + " y start " +graphY +
+//                "height " + graphHeight + " width " + graphWidth);
 
 
         for (int x = 0 ; x < Fractal.frameWidth ; x++) {
@@ -102,31 +96,6 @@ public class FractalPanel extends JPanel{
 
             }
         }
-
-//        for (double x = graphX ; x <= graphWidth + graphX ; x += xIncrement) {
-//
-//            for (double y = graphY ; y <= graphHeight + graphY ; y += yIncrement) {
-//
-//                int color = mandlebrotConverge(x, y);       // This is slow. To Async task!
-//                //int color = burningShipConverge(x, y);
-//
-//                if (color == 0) {
-//                    g.setColor(Color.black);
-//                } else {
-//                    g.setColor(getDrawingColor(color));
-//                }
-//                g.drawRect(pixelX, pixelY, 1, 1);
-//
-//                pixelY++;
-//
-//            }
-//
-//            pixelY = 0;
-//
-//            pixelX++;
-//        }
-
-    //    System.out.println("Total pixels " + pixelX + " " + pixelY);
 
     }
 
@@ -158,7 +127,7 @@ public class FractalPanel extends JPanel{
 
     }
 
-
+    //fixme - need iterations, etc.
     private int burningShipConverge(double x, double y) {
 
             //function is
@@ -184,13 +153,82 @@ public class FractalPanel extends JPanel{
 
     }
 
+    //TODO if background task running, stop it
+
+    //* this method is called when user double-clicks so want to stop any tasks running.
+
+    Thread thread;
 
     public void notifyCoordinatesUpdated() {
-        //Calculate pixel values and then
-        testConvergences(200, 1000000);
-        repaint();
+        //Calculate pixel values and then repaint
+
+
+        //testConvergences(2000, 1000000000);
+
+        if (thread != null) {
+            System.out.println("calculations running, interrupting");
+            thread.interrupt();
+        }
+
+        int i = 50;
+        long conv = 1000l;
+        for (int x = 0 ; x < 5 ; x++){
+
+            thread = new Thread(new FractalCalcs(i*=5, conv*=5));
+            thread.start();
+
+        }
+
+
+        System.out.println("notify coord update running here ");
+        //repaint();
     }
 
+
+    class FractalCalcs implements Runnable {
+
+        int iterations;
+        long convergenceTest;
+        FractalCalcs(int iterations, long convergenceTest) {
+            this.iterations = iterations;
+            this.convergenceTest = convergenceTest;
+        }
+        @Override
+        public void run() {
+
+            System.out.println("background thread starts as " + System.nanoTime());
+            System.out.println("Iterations = " + iterations + " convergence test = " + convergenceTest);
+            testConvergences(iterations, convergenceTest);
+            repaint();
+            System.out.println("paint 1");
+//
+//            //spawn paint thread? Swing doesn't do this?
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    System.out.println("background paint");
+//                    repaint();
+//                }
+//            }).start();
+//
+//            testConvergences(500, 10000000);
+//            System.out.println("paint 2");
+//
+//            repaint();
+//
+//            testConvergences(1000, 1000000000);
+//
+//            System.out.println("paint 3");
+//            repaint();
+//
+//            testConvergences(2000, 1000000000);
+//            System.out.println("paint 4");
+//            repaint();
+
+            System.out.println("background thread done at " + System.nanoTime());
+
+        }
+    }
 
     //This is the slow part. Test each thing for convergence and fill 2d array with pixels.
     private void testConvergences(int iterations, long convergenceLimit) {
@@ -202,11 +240,11 @@ public class FractalPanel extends JPanel{
         double xIncrement = graphWidth / frameWidth;
         double yIncrement = graphHeight / frameHeight;
 
-
-        System.out.println("xIncrement = " + xIncrement);
-        System.out.println("yIncrement = " + yIncrement);
-        System.out.println("graphHeight = " + graphHeight);
-        System.out.println("graphWidth = " + graphWidth);
+//
+//        System.out.println("xIncrement = " + xIncrement);
+//        System.out.println("yIncrement = " + yIncrement);
+//        System.out.println("graphHeight = " + graphHeight);
+//        System.out.println("graphWidth = " + graphWidth);
 
         int aieCount = 0;
 
@@ -223,11 +261,11 @@ public class FractalPanel extends JPanel{
                 try {
                     pixelValues[pixelX][pixelY] = color;
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println(e);
+                    //System.out.println(e);
 
                     aieCount++;
-                    System.out.println("pixelx " + pixelX + " x = " + x  + "graph x " + graphX + " graphwidth " + graphWidth + " framewid " + frameWidth + "  xinr " + xIncrement);
-                    System.out.println("pixely = " + pixelY +  " y = " + y + "graph y " + graphY + " graphhe " + graphHeight + " framehe " + frameHeight + "  yinr " + yIncrement);
+                    //System.out.println("pixelx " + pixelX + " x = " + x  + "graph x " + graphX + " graphwidth " + graphWidth + " framewid " + frameWidth + "  xinr " + xIncrement);
+                    //System.out.println("pixely = " + pixelY +  " y = " + y + "graph y " + graphY + " graphhe " + graphHeight + " framehe " + frameHeight + "  yinr " + yIncrement);
 
                  //   System.out.println("x = " + x + " y " + y + " xmax " + "");
                 }
@@ -242,7 +280,7 @@ public class FractalPanel extends JPanel{
         }
 
 
-        System.out.println("aie count " + aieCount);
+        System.out.println("*************************** aie count " + aieCount);
 
     }
 
