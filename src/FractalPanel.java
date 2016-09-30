@@ -1,8 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.util.HashMap;
 
 /**
@@ -10,7 +7,7 @@ import java.util.HashMap;
  *
  * Mandlebrot set, and Burning Ship fractal
  */
-public class FractalPanel extends JPanel implements MouseMotionListener, MouseListener{
+public class FractalPanel extends JPanel{
 
     double graphX, graphY, graphWidth, graphHeight;
     double frameX, frameY, frameWidth, frameHeight;
@@ -19,9 +16,21 @@ public class FractalPanel extends JPanel implements MouseMotionListener, MouseLi
 
     int zoom = 1;   //number of times zoomed in
 
+    int[][] pixelValues;
+
     static HashMap<Integer, Color> colors;
 
-    FractalPanel() {
+
+    private Color getDrawingColor(int color) {
+
+        //Make wider color bands - 0-50 is one color, 50-100 is another ...
+        //These look good on the ship, but you've got to start zooming on the mandlebrot
+        int colorWideBand = (int) (color / 50) ;
+        return colors.get(colorWideBand % colors.size());
+
+    }
+
+    FractalPanel(String fractalType) {
 
         setInitialWindow();
 
@@ -35,16 +44,19 @@ public class FractalPanel extends JPanel implements MouseMotionListener, MouseLi
         colors.put(6, Color.pink);
         colors.put(7, Color.red);
 
-        addMouseListener(this);
-        addMouseMotionListener(this);
+        MouseEventsListener listener = new MouseEventsListener(this);
+
+        addMouseListener(listener);
+
+        notifyCoordinatesUpdated();   //initial drawing
     }
 
     void setInitialWindow() {
         //Pixels in Frame (window)
         frameX = 0;
         frameY = 0;
-        frameHeight = Mandlebrot.frameHeight;
-        frameWidth = Mandlebrot.frameWidth;
+        frameHeight = Fractal.frameHeight;
+        frameWidth = Fractal.frameWidth;
 
         //The area of the graph being drawn
         graphX = -2;
@@ -57,59 +69,78 @@ public class FractalPanel extends JPanel implements MouseMotionListener, MouseLi
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
+        if (pixelValues == null) {
+            g.drawString("hello", 100, 100);
+            return;
+        }
+
         System.out.println("Painting x start " +
                 graphX + " y start " +graphY +
                 "height " + graphHeight + " width " + graphWidth);
 
-        int pixelX = 0, pixelY = 0;
-
-        double xIncrement = graphWidth / frameWidth;
-        double yIncrement = graphHeight / frameHeight;
+//        int pixelX = 0, pixelY = 0;
+//
+//        double xIncrement = graphWidth / frameWidth;
+//        double yIncrement = graphHeight / frameHeight;
 
         //System.out.println("graph x " + graphX + " graphwidth " + graphWidth + " framewid " + frameWidth + "  xinr " + xIncrement);
 
-        for (double x = graphX ; x <= graphWidth + graphX ; x += xIncrement) {
 
-            for (double y = graphY ; y <= graphHeight + graphY ; y += yIncrement) {
 
-                int color = mandlebrotConverge(x, y);
-                //int color = burningShipConverge(x, y);
-                if (color == 0) { g.setColor(Color.black);}
+        for (int x = 0 ; x < Fractal.frameWidth ; x++) {
+            for (int y = 0 ; y < Fractal.frameHeight; y++) {
 
-                else {
-                    //Make wider color bands - 0-50 is one color, 50-100 is another ...
-                    //These look good on the ship, but you've got to start zooming on the mandlebrot
-                    int colorWideBand = (int) (color / 50) ;
-                    g.setColor(colors.get(colorWideBand % colors.size()));
+                int color = pixelValues[x][y];
 
-//                    g.setColor(colors.get(color % colors.size()));
+                if (color == 0) {
+                    g.setColor(Color.black);
+                } else {
+                    g.setColor(getDrawingColor(color));
                 }
-                g.drawRect(pixelX, pixelY, 1, 1);
 
-                //System.out.println("pixel x " + pixelX + " y " + pixelY + " y " + y + " graphY " + graphY + " graphHeight " + graphHeight + " yincr " + yIncrement);
-
-                pixelY++;
+                g.drawRect(x, y, 1, 1);
 
             }
-
-            pixelY = 0;
-            //System.out.println("pixel x " + pixelX + " y " + pixelY);
-
-            pixelX++;
         }
 
-        System.out.println("Total pixels " + pixelX + " " + pixelY);
+//        for (double x = graphX ; x <= graphWidth + graphX ; x += xIncrement) {
+//
+//            for (double y = graphY ; y <= graphHeight + graphY ; y += yIncrement) {
+//
+//                int color = mandlebrotConverge(x, y);       // This is slow. To Async task!
+//                //int color = burningShipConverge(x, y);
+//
+//                if (color == 0) {
+//                    g.setColor(Color.black);
+//                } else {
+//                    g.setColor(getDrawingColor(color));
+//                }
+//                g.drawRect(pixelX, pixelY, 1, 1);
+//
+//                pixelY++;
+//
+//            }
+//
+//            pixelY = 0;
+//
+//            pixelX++;
+//        }
+
+    //    System.out.println("Total pixels " + pixelX + " " + pixelY);
 
     }
 
-    //x is real, y is imaginary
-    private int mandlebrotConverge(double x, double y) {
 
-        int iterations = zoom * 40;              //More detail, the more iterations. This definitely matters
+
+
+    //x is real, y is imaginary
+    private int mandlebrotConverge(double x, double y, int iterations, long convergenceLimit) {
+
+        //int iterations = zoom * 40;              //More detail, the more iterations. This definitely matters
                                             //TODO run this function with a smaller iterations, and then increase it and repaint
                                                 ///TODO needs to be in Async so can be interrupted.
                                             //TODO larger bands for drawing colors with higher iterations to get bands rather than noise
-        int decidedNotConverge = zoom * 100;        // todo experiment with this.
+        //int decidedNotConverge = zoom * 100;        // todo experiment with this.
         //Does zz + c converge or not?
 
         Complex z = new Complex(0.0, 0.0);
@@ -117,7 +148,7 @@ public class FractalPanel extends JPanel implements MouseMotionListener, MouseLi
 
         for (int n = 0 ; n < iterations ; n++) {
             z = Complex.square(z).add(c);
-            if (z.greaterThan(decidedNotConverge)) {
+            if (z.greaterThan(convergenceLimit)) {
                 return n;
             }
         }
@@ -154,114 +185,68 @@ public class FractalPanel extends JPanel implements MouseMotionListener, MouseLi
     }
 
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        //TODO zoom
+    public void notifyCoordinatesUpdated() {
+        //Calculate pixel values and then
+        testConvergences(200, 1000000);
+        repaint();
+    }
 
-        switch (e.getButton()) {
 
-            case 1: {
+    //This is the slow part. Test each thing for convergence and fill 2d array with pixels.
+    private void testConvergences(int iterations, long convergenceLimit) {
 
-                System.out.println("Mouse click " + e);
-                int xClick = e.getX();
-                int yClick = e.getY();
+        pixelValues = new int[Fractal.frameHeight][Fractal.frameWidth];
 
-                //Initially frame is -2 -> +2 = 4 wide
-                //Click to zoom in to 0.4 wide
-                //if xClick at 450, new x graph = 1.0 -> 1.4
-                //x and y are based on x, y click location
+        int pixelX = 0, pixelY = 0;
 
-                // graphX is the where the graph plot starts, initially at -2
+        double xIncrement = graphWidth / frameWidth;
+        double yIncrement = graphHeight / frameHeight;
 
-                graphX =  graphX + ( ( xClick / frameWidth ) * graphWidth );
-                graphY =  graphY + ( ( yClick / frameHeight ) * graphHeight );
 
-                graphHeight = graphHeight / zoomFactor;
-                graphWidth = graphWidth / zoomFactor;
+        System.out.println("xIncrement = " + xIncrement);
+        System.out.println("yIncrement = " + yIncrement);
+        System.out.println("graphHeight = " + graphHeight);
+        System.out.println("graphWidth = " + graphWidth);
 
-                graphX = graphX - (graphWidth / 2);
-                graphY = graphY - (graphHeight / 2);
+        int aieCount = 0;
 
-                System.out.println("X " + graphX + " y " + graphY + " width " + graphWidth + " height " + graphHeight);
+        for (double x = graphX ; x < graphWidth + graphX ; x += xIncrement) {
 
-                repaint();  //redraw.
 
-                zoom *= 5;
+            for (double y = graphY ; y < graphHeight + graphY ; y += yIncrement) {
 
-                break;
+                int color = mandlebrotConverge(x, y, iterations, convergenceLimit);       // This is slow. To Async task!
+                //int color = burningShipConverge(x, y);
+
+
+                //fixme(?) arrayindexoutofbounds, Y coord.  Same number of AIOOB as width. Possibly consequence of non-exact math?
+                try {
+                    pixelValues[pixelX][pixelY] = color;
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println(e);
+
+                    aieCount++;
+                    System.out.println("pixelx " + pixelX + " x = " + x  + "graph x " + graphX + " graphwidth " + graphWidth + " framewid " + frameWidth + "  xinr " + xIncrement);
+                    System.out.println("pixely = " + pixelY +  " y = " + y + "graph y " + graphY + " graphhe " + graphHeight + " framehe " + frameHeight + "  yinr " + yIncrement);
+
+                 //   System.out.println("x = " + x + " y " + y + " xmax " + "");
+                }
+                pixelY++;
+
             }
 
-            case 2: { // fall through to case 3
-             }
 
-            case 3: {
-                //zoom out to start
-                zoom = 1;
-                setInitialWindow();
-                repaint();
-            }
+            pixelY = 0;
+
+            pixelX++;
         }
 
-    }
 
-
-    boolean dragging = false;
-    int clickX, clickY;
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-        System.out.println("Mouse pressed " + e);
-        dragging = true;
-        clickX = e.getX();
-        clickY = e.getY();
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        System.out.println("Mouse released " + e);
-
-        //TODO - this doesn't work as intended :)
-
-        dragging = false;
-        if (e.getX() == clickX && e.getY() == clickY) {
-            //A click - ignore
-        } else {
-            //todo this isn't the right thing to do
-            graphX =  graphX + ( ( e.getX() / frameWidth ) * graphWidth );
-            graphY =  graphY + ( ( e.getX() / frameHeight ) * graphHeight );
-
-            graphX = graphX - (graphWidth / 2);
-            graphY = graphY - (graphHeight / 2);
-
-            System.out.println("X " + graphX + " y " + graphY + " width " + graphWidth + " height " + graphHeight);
-
-            repaint();  //redraw.
-
-        }
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
+        System.out.println("aie count " + aieCount);
 
     }
 
-    @Override
-    public void mouseExited(MouseEvent e) {
 
-    }
 
-    @Override
-    public void mouseDragged(MouseEvent e) {
 
-        //TODO scroll
-        System.out.println("Mouse drag " + e);
-
-        //Keep size same, move center to mouse
-
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent e) {
-
-    }
 }
