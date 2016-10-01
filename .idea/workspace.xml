@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e7d7b744-8405-4add-a1f7-9ba7a914f59a" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Fractals/FractalPanel$FractalCalcs.class" afterPath="$PROJECT_DIR$/out/production/Fractals/FractalPanel$FractalCalcs.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Fractals/FractalPanel.class" afterPath="$PROJECT_DIR$/out/production/Fractals/FractalPanel.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/FractalPanel.java" afterPath="$PROJECT_DIR$/src/FractalPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MouseEventsListener.java" afterPath="$PROJECT_DIR$/src/MouseEventsListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="untitled1.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -38,11 +42,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FractalPanel.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="FractalPanel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/FractalPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.16294643" vertical-offset="2222" max-vertical-offset="4110">
-              <caret line="176" column="100" selection-start-line="176" selection-start-column="100" selection-end-line="176" selection-end-column="100" />
+            <state vertical-scroll-proportion="-2.148148" vertical-offset="2447" max-vertical-offset="4155">
+              <caret line="190" column="30" selection-start-line="190" selection-start-column="30" selection-end-line="190" selection-end-column="30" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#burningShipConverge#0;class#FractalPanel#0" expanded="false" />
@@ -52,11 +56,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MouseEventsListener.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MouseEventsListener.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/MouseEventsListener.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="640" max-vertical-offset="2130">
-              <caret line="66" column="49" selection-start-line="66" selection-start-column="49" selection-end-line="66" selection-end-column="49" />
+            <state vertical-scroll-proportion="0.7368421" vertical-offset="1345" max-vertical-offset="2475">
+              <caret line="113" column="29" selection-start-line="113" selection-start-column="29" selection-end-line="113" selection-end-column="29" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#240#241#0" expanded="true" />
@@ -89,8 +93,8 @@
         <option value="$PROJECT_DIR$/src/Complex.java" />
         <option value="$PROJECT_DIR$/src/MouseListener.java" />
         <option value="$PROJECT_DIR$/src/Mandlebrot.java" />
-        <option value="$PROJECT_DIR$/src/MouseEventsListener.java" />
         <option value="$PROJECT_DIR$/src/FractalPanel.java" />
+        <option value="$PROJECT_DIR$/src/MouseEventsListener.java" />
       </list>
     </option>
   </component>
@@ -98,8 +102,8 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="330" />
-    <option name="y" value="23" />
+    <option name="x" value="127" />
+    <option name="y" value="46" />
     <option name="width" value="1336" />
     <option name="height" value="875" />
   </component>
@@ -579,15 +583,15 @@
       <updated>1474915351076</updated>
       <workItem from="1474915358547" duration="13714000" />
       <workItem from="1474979651932" duration="1322000" />
-      <workItem from="1475174769982" duration="10013000" />
+      <workItem from="1475174769982" duration="13073000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25049000" />
+    <option name="totallyTimeSpent" value="28109000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="330" y="23" width="1336" height="875" extended-state="0" />
+    <frame x="127" y="46" width="1336" height="875" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -611,7 +615,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14296754" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.357599" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.357599" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -723,6 +727,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ExampleImages/burning zip zoom.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ExampleImages/mandbrot baby.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ExampleImages/mandlebrot zoom 2.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ExampleImages/mandlebrot zoom 3.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Fractal.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="555">
@@ -731,26 +755,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/MouseEventsListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="640" max-vertical-offset="2130">
-          <caret line="66" column="49" selection-start-line="66" selection-start-column="49" selection-end-line="66" selection-end-column="49" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#240#241#0" expanded="true" />
-            <element signature="e#274#275#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/FractalPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.16294643" vertical-offset="2222" max-vertical-offset="4110">
-          <caret line="176" column="100" selection-start-line="176" selection-start-column="100" selection-end-line="176" selection-end-column="100" />
+        <state vertical-scroll-proportion="-2.148148" vertical-offset="2447" max-vertical-offset="4155">
+          <caret line="190" column="30" selection-start-line="190" selection-start-column="30" selection-end-line="190" selection-end-column="30" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#burningShipConverge#0;class#FractalPanel#0" expanded="false" />
             <element signature="e#4999#5007#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MouseEventsListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7368421" vertical-offset="1345" max-vertical-offset="2475">
+          <caret line="113" column="29" selection-start-line="113" selection-start-column="29" selection-end-line="113" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#240#241#0" expanded="true" />
+            <element signature="e#274#275#0" expanded="true" />
           </folding>
         </state>
       </provider>

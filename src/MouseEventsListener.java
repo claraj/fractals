@@ -58,7 +58,7 @@ public class MouseEventsListener extends MouseAdapter {
             case 3: {
                 //zoom out to start
 
-                //TODO cancel calculations
+                //notify panel, which will cancel any pending calculations
 
                 panel.zoom = 1;
 
@@ -89,20 +89,34 @@ public class MouseEventsListener extends MouseAdapter {
         //TODO - this doesn't work as intended :)
 
         dragging = false;
-        if (e.getX() == clickX && e.getY() == clickY) {
-            //A click - ignore
+
+        int xDiff = e.getX() - clickX;
+        int yDiff = e.getY() - clickY;
+
+        if (xDiff == 0 && yDiff == 0) {
+            //a click, ignore
         } else {
-            //todo this isn't the right thing to do
-            panel.graphX =  panel.graphX + ( ( e.getX() / panel.frameWidth ) * panel.graphWidth );
-            panel.graphY =  panel.graphY + ( ( e.getX() / panel.frameHeight ) * panel.graphHeight );
 
-            panel.graphX = panel.graphX - (panel.graphWidth / 2);
-            panel.graphY = panel.graphY - (panel.graphHeight / 2);
+            System.out.println("Dragging, xdiff " + xDiff + " ydiff = " + yDiff);
 
-            System.out.println("X " + panel.graphX + " y " + panel.graphY + " width " + panel.graphWidth + " height " + panel.graphHeight);
+            System.out.println("Before drag X " + panel.graphX + " y " + panel.graphY + " width " + panel.graphWidth + " height " + panel.graphHeight);
+            System.out.println("Frame height = " + panel.frameHeight + " frame width " + panel.frameWidth );
+            //translate top left by negative vector of drag, diffX, diffY, on the scale of the current graph drawn
 
-//            panel.repaint();  //redraw.
-            panel.notifyCoordinatesUpdated();
+            //  graphX, graphY are the coordinates of the graph drawn,
+            // graphWidth, graphHeight are the graph's height and width.
+
+            double  xScale = ( panel.graphWidth / panel.frameWidth ) * xDiff;
+
+            panel.graphX -= xScale;
+            double  yScale = ( panel.graphHeight / panel.frameHeight ) * yDiff;
+
+            panel.graphY -= yScale;
+        panel.graphY = panel.graphY - (panel.graphHeight / 2);
+
+            System.out.println("After drag X " + panel.graphX + " y " + panel.graphY + " width " + panel.graphWidth + " height " + panel.graphHeight);
+
+            panel.notifyCoordinatesUpdated();   //again got to stop threads
 
 
         }

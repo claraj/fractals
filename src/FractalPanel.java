@@ -180,6 +180,7 @@ public class FractalPanel extends JPanel{
         }
 
         threads = new LinkedList<Thread>();
+        pixelsToDraw = new LinkedList<int[][]>();   //clear any pixels to draw
 
 
         int i = 50;
@@ -187,7 +188,7 @@ public class FractalPanel extends JPanel{
 
         //todo more iterations for larger zoom levels?
 
-        for (int x = 0 ; x < 5 ; x++){
+        for (int x = 0 ; x < 1 ; x++){
 
             Thread thread = new Thread(new FractalCalcs(i*=5, conv*=50));
             thread.start();
@@ -220,6 +221,8 @@ public class FractalPanel extends JPanel{
             int[][] pixelValues = testConvergences(iterations, convergenceTest);
             pixelsToDraw.add(0, pixelValues);     //todo what are the queue methods called?
             System.out.println("Thread with Iterations = " + iterations + " convergence test = " + convergenceTest + " requests paint");
+
+
             repaint();   // <= but with pixelvalues
 
 
