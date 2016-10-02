@@ -113,7 +113,7 @@ public class FractalPanel extends JPanel{
 
 
     //x is real, y is imaginary
-    private int mandlebrotConverge(double x, double y, int iterations, long convergenceLimit) {
+    private long mandlebrotConverge(double x, double y, long iterations, long convergenceLimit) {
 
         //int iterations = zoom * 40;              //More detail, the more iterations. This definitely matters
                                             //TODO run this function with a smaller iterations, and then increase it and repaint
@@ -125,7 +125,7 @@ public class FractalPanel extends JPanel{
         Complex z = new Complex(0.0, 0.0);
         Complex c = new Complex(x, y);
 
-        for (int n = 0 ; n < iterations ; n++) {
+        for (long n = 0 ; n < iterations ; n++) {
             z = Complex.square(z).add(c);
             if (z.greaterThan(convergenceLimit)) {
                 return n;
@@ -169,6 +169,16 @@ public class FractalPanel extends JPanel{
 
     LinkedList<Thread> threads = new LinkedList<Thread>();
 
+    class Settings {
+        Settings(long it, long con) {
+            this.iterations = it;
+            this.convergenceTest = con;
+        }
+        long iterations;
+        long convergenceTest;
+    }
+
+
     public void notifyCoordinatesUpdated() {
         //Calculate pixel values. when done  repaint
 
@@ -188,9 +198,9 @@ public class FractalPanel extends JPanel{
 
         //todo more iterations for larger zoom levels?
 
-        for (int x = 0 ; x < 1 ; x++){
+        for (int x = 0 ; x < 10 ; x+=5){
 
-            Thread thread = new Thread(new FractalCalcs(i*=5, conv*=50));
+            Thread thread = new Thread(new FractalCalcs(new Settings(i*(zoom/5)*(x+1), conv*(zoom/5)*(x+1))));
             thread.start();
             threads.push(thread);
 
@@ -207,11 +217,11 @@ public class FractalPanel extends JPanel{
 
     class FractalCalcs implements Runnable {
 
-        int iterations;
+        long iterations;
         long convergenceTest;
-        FractalCalcs(int iterations, long convergenceTest) {
-            this.iterations = iterations;
-            this.convergenceTest = convergenceTest;
+        FractalCalcs(Settings settings) {
+            this.iterations = settings.iterations;
+            this.convergenceTest = settings.convergenceTest;
         }
         @Override
         public void run() {
@@ -232,7 +242,7 @@ public class FractalPanel extends JPanel{
     }
 
     //This is the slow part. Test each thing for convergence and fill 2d array with pixels.
-    private int[][] testConvergences(int iterations, long convergenceLimit) {
+    private int[][] testConvergences(long iterations, long convergenceLimit) {
 
         int[][] pixelValues = new int[Fractal.frameHeight][Fractal.frameWidth];
 
@@ -254,13 +264,13 @@ public class FractalPanel extends JPanel{
 
             for (double y = graphY ; y < graphHeight + graphY ; y += yIncrement) {
 
-                int color = mandlebrotConverge(x, y, iterations, convergenceLimit);       // This is slow. To Async task!
+                long color = mandlebrotConverge(x, y, iterations, convergenceLimit);       // This is slow. Parallelize?
                 //int color = burningShipConverge(x, y);
 
 
                 //fixme(?) arrayindexoutofbounds, Y coord.  Same number of AIOOB as width. Possibly consequence of non-exact math?
                 try {
-                    pixelValues[pixelX][pixelY] = color;
+                    pixelValues[pixelX][pixelY] = (int)(color % Integer.MAX_VALUE);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     //System.out.println(e);
 
