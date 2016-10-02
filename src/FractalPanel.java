@@ -149,15 +149,47 @@ public class FractalPanel extends JPanel{
 
 
 
-    //fixme - need iterations, etc.
-    private int burningShipConverge(double x, double y) {
+    //fixme - test - output doesn't quite look right..
+    private long burningShipConverge(double im, double re, long iterations, long convergenceLimit) {
 
             //function is
 
         // square of ( abs(real part of zn ) + abs(img part of zn ) ) + c = zn+1     <- z n+1 subscript.
 
 
-        int iterations = 3000;
+        double zx = 0;
+        double zy = 0;
+
+        double cx = re;
+        double cy = im;
+
+        for (long n = 0 ; n < iterations ; n++) {
+
+            zx = Math.abs(zx);
+            zy = Math.abs(zy);
+
+            double realSq = (zx * zx) - (zy * zy);    //square
+            double imgSq = 2 * zx * zy;
+
+            zx = cx + realSq;
+            zy = cy + imgSq;
+
+            if  (Double.isNaN(zx) || Double.isNaN(zy) ) {
+                // System.out.println("Overflow " + n);
+                return n;
+            }
+
+            if ( ((zx * zx) + (zy * zy)) > (convergenceLimit*convergenceLimit)) {
+                // System.out.println("Big number " + n);
+                return n;
+            }
+        }
+
+        //If no convergence after a load of iterations, assume does not converge.
+        return 0;   //This is a weird scale.  Perhaps return NaN for not converge?
+
+
+        /*int iterations = 3000;
         long decidedNotConverge = 100000000000l;        // todo experiment with this.
 
         Complex z = new Complex(0.0, 0.0);
@@ -172,7 +204,7 @@ public class FractalPanel extends JPanel{
 
         //If no convergence after a load of iterations, assume does not converge.
         return 0;   //This is a weird scale.
-
+*/
     }
 
     // if background task running, stop it
@@ -278,7 +310,7 @@ public class FractalPanel extends JPanel{
             for (double y = graphY ; y < graphHeight + graphY ; y += yIncrement) {
 
                 long color = mandlebrotConverge(x, y, iterations, convergenceLimit);       // This is slow. Parallelize?
-                //int color = burningShipConverge(x, y);
+                //long color = burningShipConverge(x, y, iterations, convergenceLimit);
 
 
                 //fixme(?) arrayindexoutofbounds, Y coord.  Same number of AIOOB as width. Possibly consequence of non-exact math?

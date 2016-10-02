@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e7d7b744-8405-4add-a1f7-9ba7a914f59a" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Fractals/FractalPanel$FractalCalcs.class" afterPath="$PROJECT_DIR$/out/production/Fractals/FractalPanel$FractalCalcs.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Fractals/FractalPanel$Settings.class" afterPath="$PROJECT_DIR$/out/production/Fractals/FractalPanel$Settings.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Fractals/FractalPanel.class" afterPath="$PROJECT_DIR$/out/production/Fractals/FractalPanel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Complex.java" afterPath="$PROJECT_DIR$/src/Complex.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/FractalPanel.java" afterPath="$PROJECT_DIR$/src/FractalPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="untitled1.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -32,7 +27,7 @@
     <favorites_list name="untitled1" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.24621212">
+    <splitter split-orientation="horizontal" split-proportion="0.11916111">
       <split-first>
         <leaf>
           <file leaf-file-name="Fractal.java" pinned="false" current-in-tab="false">
@@ -48,14 +43,13 @@
           <file leaf-file-name="FractalPanel.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/FractalPanel.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="2025" max-vertical-offset="4875">
-                  <caret line="151" column="0" selection-start-line="151" selection-start-column="0" selection-end-line="151" selection-end-column="0" />
+                <state vertical-scroll-proportion="0.0" vertical-offset="1650" max-vertical-offset="4500">
+                  <caret line="126" column="0" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
                   <folding>
                     <element signature="imports" expanded="true" />
                     <element signature="method#burningShipConverge#0;class#FractalPanel#0" expanded="false" />
-                    <marker date="1475423731000" expanded="true" signature="3863:4908" placeholder="{...}" />
-                    <marker date="1475423731000" expanded="true" signature="3874:3981" placeholder="//..." />
-                    <marker date="1475423731000" expanded="true" signature="4229:4331" placeholder="//..." />
+                    <marker date="1475424209000" expanded="true" signature="3414:3516" placeholder="//..." />
+                    <marker date="1475424209000" expanded="true" signature="9276:9474" placeholder="//..." />
                   </folding>
                 </state>
               </provider>
@@ -64,7 +58,7 @@
           <file leaf-file-name="Complex.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/Complex.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.853211" vertical-offset="405" max-vertical-offset="1095">
+                <state vertical-scroll-proportion="0.9724771" vertical-offset="340" max-vertical-offset="1095">
                   <caret line="67" column="74" selection-start-line="67" selection-start-column="74" selection-end-line="67" selection-end-column="74" />
                   <folding>
                     <element signature="method#absSquare#0;class#Complex#0" expanded="false" />
@@ -80,11 +74,11 @@
           <file leaf-file-name="FractalPanel.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/FractalPanel.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.14678898" vertical-offset="1480" max-vertical-offset="5220">
-                  <caret line="104" column="0" selection-start-line="104" selection-start-column="0" selection-end-line="127" selection-end-column="0" />
+                <state vertical-scroll-proportion="0.39449543" vertical-offset="4450" max-vertical-offset="5325">
+                  <caret line="311" column="16" selection-start-line="311" selection-start-column="16" selection-end-line="311" selection-end-column="16" />
                   <folding>
                     <element signature="imports" expanded="true" />
-                    <element signature="e#5859#5867#0" expanded="true" />
+                    <element signature="e#5995#6003#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -598,12 +592,12 @@
       <workItem from="1474915358547" duration="13714000" />
       <workItem from="1474979651932" duration="1322000" />
       <workItem from="1475174769982" duration="17295000" />
-      <workItem from="1475422465758" duration="1280000" />
+      <workItem from="1475422465758" duration="1745000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33611000" />
+    <option name="totallyTimeSpent" value="34076000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="157" y="23" width="1283" height="875" extended-state="0" />
@@ -613,7 +607,7 @@
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2247765" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.06385696" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -688,13 +682,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/FractalPanel.java</url>
-          <line>130</line>
+          <line>105</line>
           <properties class="FractalPanel" method="mandlebrotConverge" />
           <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/FractalPanel.java</url>
-          <line>149</line>
+          <line>124</line>
           <properties />
           <option name="timeStamp" value="15" />
         </line-breakpoint>
@@ -732,7 +726,7 @@
           <caret line="144" column="0" selection-start-line="144" selection-start-column="0" selection-end-line="144" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#5859#5867#0" expanded="true" />
+            <element signature="e#5995#6003#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -751,7 +745,7 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#5859#5867#0" expanded="true" />
+            <element signature="e#5995#6003#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -770,7 +764,7 @@
           <caret line="174" column="49" selection-start-line="174" selection-start-column="49" selection-end-line="174" selection-end-column="49" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#5859#5867#0" expanded="true" />
+            <element signature="e#5995#6003#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -817,7 +811,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Complex.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.853211" vertical-offset="405" max-vertical-offset="1095">
+        <state vertical-scroll-proportion="0.9724771" vertical-offset="340" max-vertical-offset="1095">
           <caret line="67" column="74" selection-start-line="67" selection-start-column="74" selection-end-line="67" selection-end-column="74" />
           <folding>
             <element signature="method#absSquare#0;class#Complex#0" expanded="false" />
@@ -827,11 +821,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/FractalPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.14678898" vertical-offset="1480" max-vertical-offset="5220">
-          <caret line="104" column="0" selection-start-line="104" selection-start-column="0" selection-end-line="127" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.39449543" vertical-offset="4450" max-vertical-offset="5325">
+          <caret line="311" column="16" selection-start-line="311" selection-start-column="16" selection-end-line="311" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#5859#5867#0" expanded="true" />
+            <element signature="e#5995#6003#0" expanded="true" />
           </folding>
         </state>
       </provider>
