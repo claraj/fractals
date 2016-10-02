@@ -81,16 +81,6 @@ public class FractalPanel extends JPanel{
 
         int[][] pixelValues = pixelsToDraw.remove();   //remove from end of queue
 
-//        if (pixelValues == null) {
-//            g.drawString("nothing to draw", 100, 100);
-//            return;
-//        }
-
-//        System.out.println("Painting x start " +
-//                graphX + " y start " +graphY +
-//                "height " + graphHeight + " width " + graphWidth);
-
-
         for (int x = 0 ; x < Fractal.frameWidth ; x++) {
             for (int y = 0 ; y < Fractal.frameHeight; y++) {
 
@@ -106,36 +96,58 @@ public class FractalPanel extends JPanel{
 
             }
         }
-
     }
 
+    //Objects are slow. MUCH faster to use doubles and do the math
+    //Benchmark for initial draw  at 300x300  iterations 50 convergence limit 1000
+    //                                        iterations 300 convergence limit 6000
+    // With doubles: 5, 15 ms
+    // With Complex objects: about 41, 65  --> varied slighlty between runs
+    private long mandlebrotConverge(double re, double im, long iterations, long convergenceLimit) {
 
-
-
-    //x is real, y is imaginary
-    private long mandlebrotConverge(double x, double y, long iterations, long convergenceLimit) {
-
-        //int iterations = zoom * 40;              //More detail, the more iterations. This definitely matters
-                                            //TODO run this function with a smaller iterations, and then increase it and repaint
-                                                ///TODO needs to be in Async so can be interrupted.
-                                            //TODO larger bands for drawing colors with higher iterations to get bands rather than noise
-        //int decidedNotConverge = zoom * 100;        // todo experiment with this.
         //Does zz + c converge or not?
 
-        Complex z = new Complex(0.0, 0.0);
-        Complex c = new Complex(x, y);
+        // real = x, img = y
+
+        // zsqared = real(xx - yy) + img(2xy)
+
+        //  c = complex made from x, y
+        //  z = 0 + i0
+        //  iterate zn = sq(z) + c
+
+
+        double zx = 0;
+        double zy = 0;
+
+        double cx = re;
+        double cy = im;
 
         for (long n = 0 ; n < iterations ; n++) {
-            z = Complex.square(z).add(c);
-            if (z.greaterThan(convergenceLimit)) {
+
+            double realSq = (zx * zx) - (zy * zy);    //square
+            double imgSq = 2 * zx * zy;
+
+            zx = cx + realSq;
+            zy = cy + imgSq;
+
+            if  (Double.isNaN(zx) || Double.isNaN(zy) ) {
+               // System.out.println("Overflow " + n);
+                return n;
+            }
+
+            if ( ((zx * zx) + (zy * zy)) > (convergenceLimit*convergenceLimit)) {
+               // System.out.println("Big number " + n);
                 return n;
             }
         }
 
         //If no convergence after a load of iterations, assume does not converge.
-        return 0;   //This is a weird scale.
+        return 0;   //This is a weird scale.  Perhaps return NaN for not converge?
 
     }
+
+
+
 
     //fixme - need iterations, etc.
     private int burningShipConverge(double x, double y) {
@@ -200,7 +212,7 @@ public class FractalPanel extends JPanel{
 
         for (int x = 0 ; x < 10 ; x+=5){
 
-            Thread thread = new Thread(new FractalCalcs(new Settings(i*(zoom/5)*(x+1), conv*(zoom/5)*(x+1))));
+            Thread thread = new Thread(new FractalCalcs(new Settings(i*(zoom)*(x+1), conv*(zoom)*(x+1))));
             thread.start();
             threads.push(thread);
 
@@ -226,6 +238,7 @@ public class FractalPanel extends JPanel{
         @Override
         public void run() {
 
+            long timestart = System.nanoTime();
             System.out.println("background thread starts as " + System.nanoTime());
             System.out.println("Iterations = " + iterations + " convergence test = " + convergenceTest);
             int[][] pixelValues = testConvergences(iterations, convergenceTest);
@@ -236,7 +249,7 @@ public class FractalPanel extends JPanel{
             repaint();   // <= but with pixelvalues
 
 
-            System.out.println("background thread done at " + System.nanoTime());
+            System.out.println("background thread done at " + System.nanoTime() + " taking " + (System.nanoTime() - timestart)/1000000);
 
         }
     }
@@ -291,7 +304,7 @@ public class FractalPanel extends JPanel{
         }
 
 
-        System.out.println("*************************** aie count " + aieCount);
+        if (aieCount > 0) {System.out.println("*************************** aie count " + aieCount);}
 
 
         return pixelValues;

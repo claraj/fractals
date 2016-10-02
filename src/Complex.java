@@ -46,7 +46,7 @@ public class Complex {
     //Is this complex number less than absValue?
     public boolean lessThan(double absValue) {
 
-        //Go look up how to do this properly
+        //Go look up how to do this properly.
 
         double sqReal = real * real;
         double sqImg = imaginary * imaginary;
@@ -65,7 +65,7 @@ public class Complex {
         double sqReal = real * real;
         double sqImg = imaginary * imaginary;
 
-        return ( Math.sqrt(sqImg + sqReal) > absValue );
+        return ( Math.sqrt(sqImg + sqReal) > absValue );   //this is right
 
     }
 
