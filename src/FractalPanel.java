@@ -1,18 +1,27 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.Calendar;
+
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ForkJoinPool;
 
 /**
  * Created by clara on 9/26/16.
  *
  * Mandlebrot set, and Burning Ship fractal
+ *
+ *
+ * todo make sure that when thread is cancelled, any subthreads are also cancelled
+ * todo investigate weird drawing after a couple of zooms - probably threading
+ * todo fix 27000 aioob excceptions in ForkJoinPool
+ * todo write fixedThreadPool code correctly. One thread is overwriting the other. Also use arguments so it works at zoom too.
  */
 public class FractalPanel extends JPanel{
 
     double graphX, graphY, graphWidth, graphHeight;
-    double frameX, frameY, frameWidth, frameHeight;
+    int frameX, frameY, frameWidth, frameHeight;
 
     double zoomFactor = 5;  //Clicking on an area of the image zooms in 10x
 
@@ -102,19 +111,8 @@ public class FractalPanel extends JPanel{
     //Benchmark for initial draw  at 300x300  iterations 50 convergence limit 1000
     //                                        iterations 300 convergence limit 6000
     // With doubles: 5, 15 ms
-    // With Complex objects: about 41, 65  --> varied slighlty between runs
+    // With Complex objects: about 41, 65  --> varied slightly between runs
     private long mandlebrotConverge(double re, double im, long iterations, long convergenceLimit) {
-
-        //Does zz + c converge or not?
-
-        // real = x, img = y
-
-        // zsqared = real(xx - yy) + img(2xy)
-
-        //  c = complex made from x, y
-        //  z = 0 + i0
-        //  iterate zn = sq(z) + c
-
 
         double zx = 0;
         double zy = 0;
@@ -149,7 +147,7 @@ public class FractalPanel extends JPanel{
 
 
 
-    //fixme - test - output doesn't quite look right..
+    //fixme - test - output doesn't quite look right... ?
     private long burningShipConverge(double im, double re, long iterations, long convergenceLimit) {
 
             //function is
@@ -242,13 +240,13 @@ public class FractalPanel extends JPanel{
 
         //todo more iterations for larger zoom levels?
 
-        for (int x = 0 ; x < 10 ; x+=5){
+       // for (int x = 0 ; x < 10 ; x+=5){
 
-            Thread thread = new Thread(new FractalCalcs(new Settings(i*(zoom)*(x+1), conv*(zoom)*(x+1))));
+            Thread thread = new Thread(new FractalCalcs(new Settings(i*(zoom), conv*(zoom))));
             thread.start();
             threads.push(thread);
 
-        }
+       // }
 
 
         System.out.println("notify coord update running here ");
@@ -270,20 +268,100 @@ public class FractalPanel extends JPanel{
         @Override
         public void run() {
 
+
             long timestart = System.nanoTime();
             System.out.println("background thread starts as " + System.nanoTime());
             System.out.println("Iterations = " + iterations + " convergence test = " + convergenceTest);
-            int[][] pixelValues = testConvergences(iterations, convergenceTest);
+
+
+            //Maths in the program, no threads
+            //int[][] pixelValues = testConvergences(iterations, convergenceTest);
+
+            //Thread pool
+            //int[][] pixelValues = fixedThreadPool();
+
+            //Divide recursively
+            int[][] pixelValues = forkJoinPool();
+
             pixelsToDraw.add(0, pixelValues);     //todo what are the queue methods called?
+
             System.out.println("Thread with Iterations = " + iterations + " convergence test = " + convergenceTest + " requests paint");
 
-
             repaint();   // <= but with pixelvalues
-
 
             System.out.println("background thread done at " + System.nanoTime() + " taking " + (System.nanoTime() - timestart)/1000000);
 
         }
+
+
+        private int[][] fixedThreadPool() {
+
+            int[][] pixelValues = new int[Fractal.frameWidth][Fractal.frameHeight];
+            ExecutorService ex = Executors.newFixedThreadPool(5);
+
+            MandlebrotRunnable mr = new MandlebrotRunnable(pixelValues,
+                    0,
+                    graphX,
+                    graphY,
+                    graphHeight, (graphWidth/2)
+            );
+
+
+
+            MandlebrotRunnable mr2 = new MandlebrotRunnable(pixelValues,
+                    150,
+                    graphX + (graphWidth/2) ,
+                    graphY,
+                    graphHeight, (graphWidth/2)
+            );
+
+
+
+            MandlebrotRunnable.frameHeight = Fractal.frameHeight;
+            MandlebrotRunnable.frameWidth = (Fractal.frameWidth)/2;
+            MandlebrotRunnable.iterations = iterations;
+            MandlebrotRunnable.convergence = convergenceTest;
+
+
+            try {
+                ex.submit(mr, mr2).get();     /// second is overwriting the first, need sorting out
+            }
+
+            catch (Exception e) {
+                System.out.println("Exception " + e);
+            }
+
+            return pixelValues;
+
+        }
+
+        private int[][] forkJoinPool() {
+            // ForkJoinPool
+             int[][] pixelValues = new int[Fractal.frameWidth][Fractal.frameHeight];
+
+             ForkJoinPool pool = new ForkJoinPool();
+
+             MandlebrotTask mt = new MandlebrotTask(pixelValues,
+             0, frameWidth,
+             graphX,
+             graphY,
+             graphX, graphWidth,
+             graphHeight, graphWidth
+             );
+             MandlebrotTask.frameHeight = Fractal.frameHeight;
+             MandlebrotTask.frameWidth = Fractal.frameWidth;
+             MandlebrotTask.baseGraphXstart = graphX;
+            // MandlebrotTask.pixelYend = Fractal.frameHeight;
+             MandlebrotTask.iterations = iterations;
+             MandlebrotTask.convergence = convergenceTest;
+
+             pool.invoke(mt);
+
+            return pixelValues;
+
+        }
+
+
     }
 
     //This is the slow part. Test each thing for convergence and fill 2d array with pixels.
@@ -305,8 +383,6 @@ public class FractalPanel extends JPanel{
         int aieCount = 0;
 
         for (double x = graphX ; x < graphWidth + graphX ; x += xIncrement) {
-
-
             for (double y = graphY ; y < graphHeight + graphY ; y += yIncrement) {
 
                 long color = mandlebrotConverge(x, y, iterations, convergenceLimit);       // This is slow. Parallelize?
@@ -328,7 +404,6 @@ public class FractalPanel extends JPanel{
                 pixelY++;
 
             }
-
 
             pixelY = 0;
 
