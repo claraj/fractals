@@ -4,27 +4,27 @@
 public class MandlebrotRunnable implements Runnable {
 
     int[][] pixels;
-
     static long iterations;
     static long convergence;
 
-    int pixelXstart;
-//    int pixelXend;
-//
-
+    //Graph size of original graph, before slicing
     double graphXstart;
-
-    double graphXend;   //not needed if have graphHeight
-
     double graphYstart;
-    double graphYend;     //same for graphWidth
-
 
     double graphWidth;
     double graphHeight;
 
+    //slice dimens
+    double sliceXstart;
+    double sliceXwidth;
+
+    //Pixels
     static int frameWidth;
     static int frameHeight;
+
+
+    int pixelXstart;
+    int pixelXend;
 
     public MandlebrotRunnable(int[][] pixels,
                               int xStart,
@@ -37,9 +37,7 @@ public class MandlebrotRunnable implements Runnable {
 //        this.pixelXend = pixelXend;
 
         this.graphXstart = graphXstart;
-        this.graphXend = graphXend;
         this.graphYstart = graphYstart;
-        this.graphYend = graphYend;
 
         this.graphHeight = graphHeight;
         this.graphWidth = graphWidth;
@@ -98,10 +96,10 @@ public class MandlebrotRunnable implements Runnable {
         double yIncrement = graphHeight / frameHeight;
 
 
-        System.out.println("xIncrement = " + xIncrement);
-        System.out.println("yIncrement = " + yIncrement);
-        System.out.println("graphHeight = " + graphHeight);
-        System.out.println("graphWidth = " + graphWidth);
+//        System.out.println("xIncrement = " + xIncrement);
+//        System.out.println("yIncrement = " + yIncrement);
+//        System.out.println("graphHeight = " + graphHeight);
+//        System.out.println("graphWidth = " + graphWidth);
 
         int aieCount = 0;
 

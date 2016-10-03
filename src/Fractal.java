@@ -1,12 +1,12 @@
 import javax.swing.*;
 
 /**
- * Created by admin on 9/26/16.
+ * Created by clara on 9/26/16.
  */
 public class Fractal {
 
-    static int frameWidth = 300;
-    static int frameHeight = 300;
+    static int frameWidth = 500;
+    static int frameHeight = 500;
 
     static String MANDLEBROT = "mandlebrot";
     static String BURNING_SHIP = "burning ship";

@@ -64,7 +64,8 @@ class MandlebrotTask extends RecursiveAction {
 
     //A small number of lines for xstart->xend.
 
-    //TODO are you doing this right? Possibly repeating work? LOTS of aioob exceptions - 270000....
+    //todo test on other breakdowns of task, larger areas
+
 
     protected void aFewLines() {
 
@@ -76,11 +77,11 @@ class MandlebrotTask extends RecursiveAction {
         double yIncrement = graphHeight / frameHeight;
 
 
-        System.out.println("pixelX = " + pixelX);
-        System.out.println("graphXstart = " + graphXstart);
-        System.out.println("graphWidth = " + graphWidth);
-        System.out.println("yIncrement = " + yIncrement);
-        System.out.println("xIncrement = " + xIncrement);
+//        System.out.println("pixelX = " + pixelX);
+//        System.out.println("graphXstart = " + graphXstart);
+//        System.out.println("graphWidth = " + graphWidth);
+//        System.out.println("yIncrement = " + yIncrement);
+//        System.out.println("xIncrement = " + xIncrement);
 
         int aieCount = 0;
 
@@ -106,16 +107,18 @@ class MandlebrotTask extends RecursiveAction {
             pixelX++;
         }
 
-        System.out.println("iterations = " + iterations);
+       System.out.println("Slice complete...");
 
         if (aieCount > 0) {System.out.println("*************************** aie count " + aieCount);}
 
     }
 
-    int arbitraryLimit = 60;   //x pixels per slice
 
     @Override
     protected void compute() {
+
+        int arbitraryLimit = frameWidth / 10;   // make a sensible number based on framesize.
+
 
         int length = pixelXend - pixelXstart;
 

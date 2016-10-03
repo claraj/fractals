@@ -14,15 +14,18 @@ import java.util.concurrent.ForkJoinPool;
  *
  *
  * todo make sure that when thread is cancelled, any subthreads are also cancelled
- * todo investigate weird drawing after a couple of zooms - probably threading
+ * todo investigate weird drawing after a couple of zooms - probably threading errors, not clearing list of pixel arrays?
+ *
+ * todo be able to write more than one draw thread, e.g. one for low, one for high resolution
  * todo write fixedThreadPool code correctly. One thread is overwriting the other. Also use arguments so it works at zoom too.
- */
+ *
+ * */
 public class FractalPanel extends JPanel{
 
     double graphX, graphY, graphWidth, graphHeight;
     double frameX, frameY, frameWidth, frameHeight;
 
-    double zoomFactor = 5;  //Clicking on an area of the image zooms in 10x
+    double zoomFactor = 5;  //Clicking on an area of the image zooms in 5x
 
     int zoom = 1;   //number of times zoomed in
 
@@ -116,37 +119,30 @@ public class FractalPanel extends JPanel{
         double zx = 0;
         double zy = 0;
 
-        double cx = re;
-        double cy = im;
-
         for (long n = 0 ; n < iterations ; n++) {
 
             double realSq = (zx * zx) - (zy * zy);    //square
             double imgSq = 2 * zx * zy;
 
-            zx = cx + realSq;
-            zy = cy + imgSq;
+            zx = re + realSq;
+            zy = im + imgSq;
 
             if  (Double.isNaN(zx) || Double.isNaN(zy) ) {
-               // System.out.println("Overflow " + n);
                 return n;
             }
 
             if ( ((zx * zx) + (zy * zy)) > (convergenceLimit*convergenceLimit)) {
-               // System.out.println("Big number " + n);
                 return n;
             }
         }
 
         //If no convergence after a load of iterations, assume does not converge.
         return 0;   //This is a weird scale.  Perhaps return NaN for not converge?
-
     }
 
 
-
-
-    //fixme - test - output doesn't quite look right... ?
+    //fixme - test - output doesn't quite look right...
+    // todo then optimize speed etc. ?
     private long burningShipConverge(double im, double re, long iterations, long convergenceLimit) {
 
             //function is
@@ -234,21 +230,23 @@ public class FractalPanel extends JPanel{
         pixelsToDraw = new LinkedList<int[][]>();   //clear any pixels to draw
 
 
+
+
         int i = 50;
         long conv = 1000l;
 
         //todo more iterations for larger zoom levels?
 
-       // for (int x = 0 ; x < 10 ; x+=5){
+        for (int x = 1 ; x <= 10 ; x+=5){
 
-            Thread thread = new Thread(new FractalCalcs(new Settings(i*(zoom), conv*(zoom))));
+            Thread thread = new Thread(new FractalCalcs(new Settings(i*(zoom*x), conv*(zoom*x))));
             thread.start();
             threads.push(thread);
 
-       // }
+        }
 
 
-        System.out.println("notify coord update running here ");
+        System.out.println("graphx " + graphX + " graph y " + graphY + " width " + graphWidth + " zoom " + zoom);
         //repaint();
     }
 
@@ -269,18 +267,18 @@ public class FractalPanel extends JPanel{
 
 
             long timestart = System.nanoTime();
-            System.out.println("background thread starts as " + System.nanoTime());
+            System.out.println("background thread starts at " + System.nanoTime());
             System.out.println("Iterations = " + iterations + " convergence test = " + convergenceTest);
 
 
             //Maths in the program, no threads
             //int[][] pixelValues = testConvergences(iterations, convergenceTest);
 
-            //Thread pool
-            //int[][] pixelValues = fixedThreadPool();
+            //Thread pool. Not working, duh?
+            int[][] pixelValues = fixedThreadPool();
 
-            //Divide recursively
-            int[][] pixelValues = forkJoinPool();
+            //Divide recursively. About twice as fast.
+            //int[][] pixelValues = forkJoinPool();
 
             pixelsToDraw.add(0, pixelValues);     //todo what are the queue methods called?
 
@@ -323,7 +321,7 @@ public class FractalPanel extends JPanel{
 
 
             try {
-                ex.submit(mr, mr2).get();     /// second is overwriting the first, need sorting out
+                ex.submit(mr, mr2).get();     /// todo second is overwriting the first, need sorting out
             }
 
             catch (Exception e) {
@@ -414,8 +412,5 @@ public class FractalPanel extends JPanel{
         return pixelValues;
 
     }
-
-
-
 
 }
