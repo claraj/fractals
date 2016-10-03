@@ -2,19 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e7d7b744-8405-4add-a1f7-9ba7a914f59a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/MandlebrotForkTask.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/MandlebrotRunnable.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TryingOutExecutors.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/TryingOutForkJoinPool.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Fractals/Fractal.class" afterPath="$PROJECT_DIR$/out/production/Fractals/Fractal.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Fractals/FractalPanel$FractalCalcs.class" afterPath="$PROJECT_DIR$/out/production/Fractals/FractalPanel$FractalCalcs.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Fractals/FractalPanel$Settings.class" afterPath="$PROJECT_DIR$/out/production/Fractals/FractalPanel$Settings.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Fractals/FractalPanel.class" afterPath="$PROJECT_DIR$/out/production/Fractals/FractalPanel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Fractals/MouseEventsListener.class" afterPath="$PROJECT_DIR$/out/production/Fractals/MouseEventsListener.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/FractalPanel.java" afterPath="$PROJECT_DIR$/src/FractalPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MouseEventsListener.java" afterPath="$PROJECT_DIR$/src/MouseEventsListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/admin.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/admin.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MandlebrotForkTask.java" afterPath="$PROJECT_DIR$/src/MandlebrotForkTask.java" />
     </list>
     <ignored path="untitled1.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -39,7 +28,7 @@
     <favorites_list name="untitled1" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.47299382">
+    <splitter split-orientation="horizontal" split-proportion="0.5763889">
       <split-first>
         <leaf>
           <file leaf-file-name="Fractal.java" pinned="false" current-in-tab="false">
@@ -55,8 +44,8 @@
           <file leaf-file-name="FractalPanel.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/FractalPanel.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.66459626" vertical-offset="4166" max-vertical-offset="5625">
-                  <caret line="347" column="32" selection-start-line="347" selection-start-column="32" selection-end-line="347" selection-end-column="32" />
+                <state vertical-scroll-proportion="0.1414392" vertical-offset="3273" max-vertical-offset="5595">
+                  <caret line="277" column="14" selection-start-line="277" selection-start-column="14" selection-end-line="277" selection-end-column="14" />
                   <folding>
                     <element signature="imports" expanded="true" />
                     <element signature="method#burningShipConverge#0;class#FractalPanel#0" expanded="false" />
@@ -78,7 +67,7 @@
           <file leaf-file-name="MouseEventsListener.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/MouseEventsListener.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="1770" max-vertical-offset="2325">
+                <state vertical-scroll-proportion="0.0" vertical-offset="315" max-vertical-offset="2325">
                   <caret line="147" column="52" selection-start-line="147" selection-start-column="52" selection-end-line="147" selection-end-column="52" />
                   <folding />
                 </state>
@@ -104,11 +93,12 @@
           <file leaf-file-name="MandlebrotForkTask.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/MandlebrotForkTask.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.47277936" vertical-offset="1215" max-vertical-offset="3465">
-                  <caret line="92" column="67" selection-start-line="92" selection-start-column="67" selection-end-line="92" selection-end-column="67" />
+                <state vertical-scroll-proportion="0.3534884" vertical-offset="1168" max-vertical-offset="2955">
+                  <caret line="88" column="0" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
                   <folding>
                     <element signature="imports" expanded="true" />
-                    <element signature="e#3513#3529#0" expanded="true" />
+                    <element signature="e#3425#3441#0" expanded="true" />
+                    <element signature="method#mandlebrotConverge#0;class#MandlebrotTask#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -143,8 +133,8 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="108" />
-    <option name="y" value="26" />
+    <option name="x" value="327" />
+    <option name="y" value="23" />
     <option name="width" value="1338" />
     <option name="height" value="861" />
   </component>
@@ -634,22 +624,22 @@
       <workItem from="1474915358547" duration="13714000" />
       <workItem from="1474979651932" duration="1322000" />
       <workItem from="1475174769982" duration="17295000" />
-      <workItem from="1475422465758" duration="16655000" />
+      <workItem from="1475422465758" duration="17376000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="48986000" />
+    <option name="totallyTimeSpent" value="49707000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="108" y="26" width="1338" height="861" extended-state="0" />
-    <editor active="false" />
+    <frame x="327" y="23" width="1338" height="861" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.0" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32899868" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -665,8 +655,8 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.0" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.5097529" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.083333336" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.40442133" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -729,19 +719,16 @@
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/MandlebrotForkTask.java</url>
-          <line>99</line>
+          <url>file://$PROJECT_DIR$/src/FractalPanel.java</url>
+          <line>343</line>
           <properties />
-          <option name="timeStamp" value="23" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/MandlebrotForkTask.java</url>
-          <line>92</line>
-          <properties />
-          <option name="timeStamp" value="24" />
+          <option name="timeStamp" value="32" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="25" />
+      <breakpoints-dialog>
+        <breakpoints-dialog />
+      </breakpoints-dialog>
+      <option name="time" value="33" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -857,14 +844,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/MouseEventsListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1770" max-vertical-offset="2325">
-          <caret line="147" column="52" selection-start-line="147" selection-start-column="52" selection-end-line="147" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/TryingOutExecutors.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="315">
@@ -891,19 +870,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/MandlebrotForkTask.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.47277936" vertical-offset="1215" max-vertical-offset="3465">
-          <caret line="92" column="67" selection-start-line="92" selection-start-column="67" selection-end-line="92" selection-end-column="67" />
+        <state vertical-scroll-proportion="0.3534884" vertical-offset="1168" max-vertical-offset="2955">
+          <caret line="88" column="0" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3513#3529#0" expanded="true" />
+            <element signature="e#3425#3441#0" expanded="true" />
+            <element signature="method#mandlebrotConverge#0;class#MandlebrotTask#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MouseEventsListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1770" max-vertical-offset="2325">
+          <caret line="147" column="52" selection-start-line="147" selection-start-column="52" selection-end-line="147" selection-end-column="52" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/FractalPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.66459626" vertical-offset="4166" max-vertical-offset="5625">
-          <caret line="347" column="32" selection-start-line="347" selection-start-column="32" selection-end-line="347" selection-end-column="32" />
+        <state vertical-scroll-proportion="0.1414392" vertical-offset="3273" max-vertical-offset="5595">
+          <caret line="277" column="14" selection-start-line="277" selection-start-column="14" selection-end-line="277" selection-end-column="14" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#burningShipConverge#0;class#FractalPanel#0" expanded="false" />

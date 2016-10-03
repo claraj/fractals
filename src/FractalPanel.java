@@ -15,13 +15,12 @@ import java.util.concurrent.ForkJoinPool;
  *
  * todo make sure that when thread is cancelled, any subthreads are also cancelled
  * todo investigate weird drawing after a couple of zooms - probably threading
- * todo fix 27000 aioob excceptions in ForkJoinPool
  * todo write fixedThreadPool code correctly. One thread is overwriting the other. Also use arguments so it works at zoom too.
  */
 public class FractalPanel extends JPanel{
 
     double graphX, graphY, graphWidth, graphHeight;
-    int frameX, frameY, frameWidth, frameHeight;
+    double frameX, frameY, frameWidth, frameHeight;
 
     double zoomFactor = 5;  //Clicking on an area of the image zooms in 10x
 
@@ -336,22 +335,20 @@ public class FractalPanel extends JPanel{
         }
 
         private int[][] forkJoinPool() {
-            // ForkJoinPool
+
              int[][] pixelValues = new int[Fractal.frameWidth][Fractal.frameHeight];
 
              ForkJoinPool pool = new ForkJoinPool();
 
              MandlebrotTask mt = new MandlebrotTask(pixelValues,
-             0, frameWidth,
-             graphX,
-             graphY,
-             graphX, graphWidth,
-             graphHeight, graphWidth
+             0, (int)frameWidth,
+             graphX, graphY,        //graph dimens x y start
+             graphX, graphWidth,       //slicw x dimens
+             graphHeight, graphWidth       //graph dimens
              );
              MandlebrotTask.frameHeight = Fractal.frameHeight;
              MandlebrotTask.frameWidth = Fractal.frameWidth;
              MandlebrotTask.baseGraphXstart = graphX;
-            // MandlebrotTask.pixelYend = Fractal.frameHeight;
              MandlebrotTask.iterations = iterations;
              MandlebrotTask.convergence = convergenceTest;
 

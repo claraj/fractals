@@ -1,16 +1,12 @@
 import java.util.ArrayList;
-import java.util.Arrays;
-
-import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveAction;
 
 /**
  * Created by admin on 10/2/16.
- *
- * A very laborious way to multiply the numbers in an array by 10 :)
- *
+ **
  *
  * TODO Mandlebrot set - use this to do the complex calculations
+ * todo works for initial drawing, breaks for zoom
  */
 
 
@@ -116,7 +112,7 @@ class MandlebrotTask extends RecursiveAction {
 
     }
 
-    int arbitraryLimit = 30;   //x pixels per slice
+    int arbitraryLimit = 60;   //x pixels per slice
 
     @Override
     protected void compute() {
