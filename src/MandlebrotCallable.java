@@ -1,7 +1,9 @@
+import java.util.concurrent.Callable;
+
 /**
  * Created by admin on 10/2/16.
  */
-public class MandlebrotRunnable implements Runnable {
+public class MandlebrotCallable implements Callable<Void> {
 
     int[][] pixels;
     static long iterations;
@@ -26,18 +28,21 @@ public class MandlebrotRunnable implements Runnable {
     int pixelXstart;
     int pixelXend;
 
-    public MandlebrotRunnable(int[][] pixels,
-                              int xStart,
-                        //  int pixelXstart, int pixelXend,
-                          double graphXstart, double graphYstart,
-                          double graphHeight, double graphWidth ) {
+    public MandlebrotCallable(int[][] pixels,
+                              int pixelXstart, int pixelXend,
+                              double graphXstart, double graphYstart,
+                              double sliceXstart, double sliceXwidth,
+                              double graphHeight, double graphWidth) {
 
         this.pixels = pixels;
-        this.pixelXstart = xStart;
-//        this.pixelXend = pixelXend;
+        this.pixelXstart = pixelXstart;
+        this.pixelXend = pixelXend;
 
         this.graphXstart = graphXstart;
         this.graphYstart = graphYstart;
+
+        this.sliceXstart = sliceXstart;
+        this.sliceXwidth = sliceXwidth;
 
         this.graphHeight = graphHeight;
         this.graphWidth = graphWidth;
@@ -45,9 +50,11 @@ public class MandlebrotRunnable implements Runnable {
     }
 
     @Override
-    public void run() {
+    public Void call() {
 
         testConvergences();
+
+        return null;
 
     }
 
@@ -84,11 +91,7 @@ public class MandlebrotRunnable implements Runnable {
     }
 
 
-
-    //This is the slow part. Test each thing for convergence and fill 2d array with pixels.
     private void testConvergences() {
-
-     //   int[][] pixelValues = new int[Fractal.frameHeight][Fractal.frameWidth];
 
         int pixelX = pixelXstart, pixelY = 0;
 
@@ -96,10 +99,12 @@ public class MandlebrotRunnable implements Runnable {
         double yIncrement = graphHeight / frameHeight;
 
 
-//        System.out.println("xIncrement = " + xIncrement);
-//        System.out.println("yIncrement = " + yIncrement);
-//        System.out.println("graphHeight = " + graphHeight);
-//        System.out.println("graphWidth = " + graphWidth);
+        System.out.println("xIncrement = " + xIncrement);
+        System.out.println("yIncrement = " + yIncrement);
+        System.out.println("graphHeight = " + graphHeight);
+        System.out.println("graphWidth = " + graphWidth);
+        System.out.println("pixelX = " + pixelX);
+        System.out.println("pixelY = " + pixelY);
 
         int aieCount = 0;
 
@@ -109,16 +114,16 @@ public class MandlebrotRunnable implements Runnable {
         //Breaking into two, they should be -2 -> 0 and 0 -> 2
         //graphX start should be, like, where this section of the graph starts, graphWidth is the width of this section
 
-        for (double x = graphXstart ; x < graphWidth + graphXstart ; x += xIncrement) {
+        for (double x = sliceXstart ; x < sliceXstart + sliceXwidth ; x += xIncrement) {
             for (double y = graphYstart ; y < graphHeight + graphYstart ; y += yIncrement) {
 
                 long color = mandlebrotConverge(x, y);
-                //long color = burningShipConverge(x, y, iterations, convergenceLimit);
 
-
-                //fixme(?) arrayindexoutofbounds, Y coord.  Same number of AIOOB as width. Possibly consequence of non-exact math?
+                //fixme(?) arrayindexoutofbounds, Y coord.  Same number of AIOOB as width. Possibly consequence of non-exact math for dividing frame into stripes
                 try {
                     pixels[pixelX][pixelY] = (int)(color % Integer.MAX_VALUE);
+                    pixelModCount++;
+
                 } catch (ArrayIndexOutOfBoundsException e) {
                     //System.out.println(e);
 
@@ -130,7 +135,6 @@ public class MandlebrotRunnable implements Runnable {
                 }
                 pixelY++;
 
-                pixelModCount++;
 
             }
 

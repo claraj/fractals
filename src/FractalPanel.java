@@ -1,11 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.Future;
 
 /**
  * Created by clara on 9/26/16.
@@ -237,13 +239,13 @@ public class FractalPanel extends JPanel{
 
         //todo more iterations for larger zoom levels?
 
-        for (int x = 1 ; x <= 10 ; x+=5){
+       // for (int x = 1 ; x <= 10 ; x+=5){
 
-            Thread thread = new Thread(new FractalCalcs(new Settings(i*(zoom*x), conv*(zoom*x))));
+            Thread thread = new Thread(new FractalCalcs(new Settings(i*(zoom), conv*(zoom))));
             thread.start();
             threads.push(thread);
 
-        }
+      //  }
 
 
         System.out.println("graphx " + graphX + " graph y " + graphY + " width " + graphWidth + " zoom " + zoom);
@@ -274,7 +276,7 @@ public class FractalPanel extends JPanel{
             //Maths in the program, no threads
             //int[][] pixelValues = testConvergences(iterations, convergenceTest);
 
-            //Thread pool. Not working, duh?
+            //Thread pool. Not working, duh? FIXmE!
             int[][] pixelValues = fixedThreadPool();
 
             //Divide recursively. About twice as fast.
@@ -296,37 +298,44 @@ public class FractalPanel extends JPanel{
             int[][] pixelValues = new int[Fractal.frameWidth][Fractal.frameHeight];
             ExecutorService ex = Executors.newFixedThreadPool(5);
 
-            MandlebrotRunnable mr = new MandlebrotRunnable(pixelValues,
-                    0,
-                    graphX,
-                    graphY,
+            MandlebrotCallable mr = new MandlebrotCallable(pixelValues,
+                    0, (int)frameWidth/2,
+                    graphX, graphY,
+                    graphX, graphWidth/2,   //NO NO NO NO FIXME
                     graphHeight, (graphWidth/2)
             );
 
 
 
-            MandlebrotRunnable mr2 = new MandlebrotRunnable(pixelValues,
-                    150,
-                    graphX + (graphWidth/2) ,
-                    graphY,
+            MandlebrotCallable mr2 = new MandlebrotCallable(pixelValues,
+                    (int)frameWidth/2, (int)frameWidth,
+                    graphX + (graphWidth/2) , graphY,
+                    graphX + (graphWidth/2), graphWidth/2,  //AND FIXME
                     graphHeight, (graphWidth/2)
             );
 
 
 
-            MandlebrotRunnable.frameHeight = Fractal.frameHeight;
-            MandlebrotRunnable.frameWidth = (Fractal.frameWidth)/2;
-            MandlebrotRunnable.iterations = iterations;
-            MandlebrotRunnable.convergence = convergenceTest;
+            MandlebrotCallable.frameHeight = Fractal.frameHeight;
+            MandlebrotCallable.frameWidth = (Fractal.frameWidth)/2;
+            MandlebrotCallable.iterations = iterations;
+            MandlebrotCallable.convergence = convergenceTest;
 
+
+            ArrayList<MandlebrotCallable> tasks = new ArrayList<MandlebrotCallable>();
+            tasks.add(mr2);
+            tasks.add(mr);
 
             try {
-                ex.submit(mr, mr2).get();     /// todo second is overwriting the first, need sorting out
+
+                ex.invokeAll(tasks);     /// todo second is overwriting the first, need sorting out
             }
 
             catch (Exception e) {
                 System.out.println("Exception " + e);
             }
+
+
 
             return pixelValues;
 
@@ -341,7 +350,7 @@ public class FractalPanel extends JPanel{
              MandlebrotTask mt = new MandlebrotTask(pixelValues,
              0, (int)frameWidth,
              graphX, graphY,        //graph dimens x y start
-             graphX, graphWidth,       //slicw x dimens
+             graphX, graphWidth,       //slice x dimens
              graphHeight, graphWidth       //graph dimens
              );
              MandlebrotTask.frameHeight = Fractal.frameHeight;
