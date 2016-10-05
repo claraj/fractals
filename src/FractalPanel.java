@@ -4,10 +4,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 
 /**
  * Created by clara on 9/26/16.
@@ -306,7 +303,10 @@ public class FractalPanel extends JPanel{
 
             ArrayList<MandlebrotCallable> tasks = new ArrayList<MandlebrotCallable>();
 
-            int threads = 5;
+            int threads = 10;
+
+            //TODO What's the max number of threads for this system?
+            //int maxThreads = System. ?? what was it?
 
             ExecutorService ex = Executors.newFixedThreadPool(threads);
 

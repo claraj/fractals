@@ -109,7 +109,7 @@ public class MandlebrotCallable implements Callable<Void> {
 
         int aieCount = 0;
 
-        int pixelModCount = 0;
+        //int pixelModCount = 0;
 
         //These are important. The whole of the screen is -2 -> 2 for first draw.
         //Breaking into two, they should be -2 -> 0 and 0 -> 2
@@ -123,7 +123,7 @@ public class MandlebrotCallable implements Callable<Void> {
                 //fixme(?) arrayindexoutofbounds, Y coord.  Same number of AIOOB as width. Possibly consequence of non-exact math for dividing frame into stripes
                 try {
                     pixels[pixelX][pixelY] = (int)(color % Integer.MAX_VALUE);
-                    pixelModCount++;
+                   // pixelModCount++;
 
                 } catch (ArrayIndexOutOfBoundsException e) {
                     //System.out.println(e);
@@ -148,8 +148,8 @@ public class MandlebrotCallable implements Callable<Void> {
 
         }
 
-        System.out.println("Pixel mod: " + pixelModCount);
-        System.out.println("pixel x end " + pixelX + " pixel y end " + pixelY);
+        //System.out.println("Pixel mod: " + pixelModCount);
+        //System.out.println("pixel x end " + pixelX + " pixel y end " + pixelY);
         if (aieCount > 0) {System.out.println("*************************** aie count " + aieCount);}
 
 

@@ -117,7 +117,8 @@ class MandlebrotTask extends RecursiveAction {
     @Override
     protected void compute() {
 
-        int arbitraryLimit = frameWidth / 10;   // make a sensible number based on framesize.
+        int arbitraryLimit = frameWidth / 10;   // make a sensible number based on framesize. If frame 500px then slices may be 50px
+        //todo base on threads available to this system?
 
 
         int length = pixelXend - pixelXstart;

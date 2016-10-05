@@ -8,6 +8,7 @@ import java.util.concurrent.ForkJoinPool;
  */
 public class SpeedTest {
 
+// Depends on the frame size set in Fractal.java
 
     double frameX = 0, frameY = 0,
             frameWidth = Fractal.frameWidth, frameHeight = Fractal.frameHeight;
@@ -85,6 +86,10 @@ public class SpeedTest {
 
 
 
+        //TODO test fixedThreadPool and forkjoin pool fairly - same number of threads
+        //todo should be 10 threads each. fixedThreadPool is the current winner
+
+
         long start = System.currentTimeMillis();
 
         for (Settings s : settings) {
@@ -105,7 +110,7 @@ public class SpeedTest {
 
             ArrayList<MandlebrotCallable> tasks = new ArrayList<MandlebrotCallable>();
 
-            int threads = 5;
+            int threads = 10;
 
             ExecutorService ex = Executors.newFixedThreadPool(threads);
 
@@ -116,7 +121,7 @@ public class SpeedTest {
 
             for (int t = 0 ; t < threads ; t++) {
 
-                //Divide graph into 5 vertical slices
+                //Divide graph into same number of vertical slices as threads
                 MandlebrotCallable mr = new MandlebrotCallable(
                         pixelValues,
                         sliceXpixelStart, slicePixelWidth,       //pixels in slice - x start and width
