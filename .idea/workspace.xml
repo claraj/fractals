@@ -2,12 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e7d7b744-8405-4add-a1f7-9ba7a914f59a" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/MandlebrotRunnable.java" afterPath="$PROJECT_DIR$/src/MandlebrotCallable.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Fractals/Fractal.class" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Fractals/FractalPanel$FractalCalcs.class" afterPath="$PROJECT_DIR$/out/production/Fractals/FractalPanel$FractalCalcs.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Fractals/FractalPanel$Settings.class" afterPath="$PROJECT_DIR$/out/production/Fractals/FractalPanel$Settings.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Fractals/FractalPanel.class" afterPath="$PROJECT_DIR$/out/production/Fractals/FractalPanel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Fractals/MandlebrotRunnable.class" afterPath="$PROJECT_DIR$/out/production/Fractals/MandlebrotRunnable.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/FractalPanel.java" afterPath="$PROJECT_DIR$/src/FractalPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MandlebrotCallable.java" afterPath="$PROJECT_DIR$/src/MandlebrotCallable.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="untitled1.iws" />
@@ -33,32 +32,31 @@
     <favorites_list name="untitled1" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5607553">
+    <splitter split-orientation="horizontal" split-proportion="0.50844854">
       <split-first>
         <leaf>
-          <file leaf-file-name="Fractal.java" pinned="false" current-in-tab="false">
+          <file leaf-file-name="Fractal.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/Fractal.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="555">
-                  <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+                <state vertical-scroll-proportion="0.23178808" vertical-offset="0" max-vertical-offset="555">
+                  <caret line="7" column="31" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="31" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="FractalPanel.java" pinned="false" current-in-tab="true">
+          <file leaf-file-name="FractalPanel.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/FractalPanel.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.8192771" vertical-offset="2419" max-vertical-offset="3915">
-                  <caret line="312" column="57" selection-start-line="312" selection-start-column="57" selection-end-line="312" selection-end-column="57" />
+                <state vertical-scroll-proportion="0.0" vertical-offset="2594" max-vertical-offset="5340">
+                  <caret line="300" column="64" selection-start-line="300" selection-start-column="64" selection-end-line="300" selection-end-column="64" />
                   <folding>
                     <element signature="imports" expanded="true" />
                     <element signature="method#setInitialWindow#0;class#FractalPanel#0" expanded="false" />
                     <element signature="method#paintComponent#0;class#FractalPanel#0" expanded="false" />
                     <element signature="method#mandlebrotConverge#0;class#FractalPanel#0" expanded="false" />
                     <element signature="method#burningShipConverge#0;class#FractalPanel#0" expanded="false" />
-                    <element signature="e#9979#9999#0" expanded="true" />
-                    <element signature="method#testConvergences#0;class#FractalPanel#0" expanded="false" />
+                    <element signature="e#9386#9406#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -114,9 +112,11 @@
           <file leaf-file-name="MandlebrotCallable.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/MandlebrotCallable.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="2.4716008" vertical-offset="379" max-vertical-offset="2460">
-                  <caret line="121" column="34" selection-start-line="121" selection-start-column="34" selection-end-line="121" selection-end-column="34" />
-                  <folding />
+                <state vertical-scroll-proportion="0.5298013" vertical-offset="75" max-vertical-offset="2055">
+                  <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="24" selection-end-column="27" />
+                  <folding>
+                    <element signature="method#mandlebrotConverge#0;class#MandlebrotCallable#0" expanded="false" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -139,12 +139,12 @@
         <option value="$PROJECT_DIR$/src/TryingOutForkJoinPool.java" />
         <option value="$PROJECT_DIR$/src/MouseEventsListener.java" />
         <option value="$PROJECT_DIR$/src/TryingOutExecutors.java" />
-        <option value="$PROJECT_DIR$/src/Fractal.java" />
         <option value="$PROJECT_DIR$/src/SpeedTest.java" />
         <option value="$PROJECT_DIR$/src/MandlebrotForkTask.java" />
         <option value="$PROJECT_DIR$/src/MandlebrotRunnable.java" />
         <option value="$PROJECT_DIR$/src/MandlebrotCallable.java" />
         <option value="$PROJECT_DIR$/src/FractalPanel.java" />
+        <option value="$PROJECT_DIR$/src/Fractal.java" />
       </list>
     </option>
   </component>
@@ -152,10 +152,10 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="10" />
-    <option name="y" value="66" />
-    <option name="width" value="1388" />
-    <option name="height" value="866" />
+    <option name="x" value="66" />
+    <option name="y" value="26" />
+    <option name="width" value="1344" />
+    <option name="height" value="823" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -684,26 +684,26 @@
       <workItem from="1474979651932" duration="1322000" />
       <workItem from="1475174769982" duration="17295000" />
       <workItem from="1475422465758" duration="22365000" />
-      <workItem from="1475517242580" duration="3838000" />
+      <workItem from="1475517242580" duration="7132000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="58534000" />
+    <option name="totallyTimeSpent" value="61828000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="10" y="66" width="1388" height="866" extended-state="0" />
+    <frame x="66" y="26" width="1344" height="823" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5129199" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.41860464" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36950904" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36935705" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -715,8 +715,8 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14784546" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21317829" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.0" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.34199727" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -774,7 +774,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/FractalPanel.java</url>
-          <line>349</line>
+          <line>393</line>
           <properties />
           <option name="timeStamp" value="32" />
         </line-breakpoint>
@@ -786,21 +786,21 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/FractalPanel.java</url>
-          <line>339</line>
+          <line>383</line>
           <properties />
           <option name="timeStamp" value="36" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/MandlebrotCallable.java</url>
-          <line>110</line>
+          <line>117</line>
           <properties />
-          <option name="timeStamp" value="39" />
+          <option name="timeStamp" value="41" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="40" />
+      <option name="time" value="42" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -827,8 +827,7 @@
             <element signature="method#paintComponent#0;class#FractalPanel#0" expanded="false" />
             <element signature="method#mandlebrotConverge#0;class#FractalPanel#0" expanded="false" />
             <element signature="method#burningShipConverge#0;class#FractalPanel#0" expanded="false" />
-            <element signature="e#9979#9999#0" expanded="true" />
-            <element signature="method#testConvergences#0;class#FractalPanel#0" expanded="false" />
+            <element signature="e#9386#9406#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -874,7 +873,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1771" max-vertical-offset="2430">
           <caret line="127" column="28" selection-start-line="127" selection-start-column="22" selection-end-line="127" selection-end-column="28" />
-          <folding />
+          <folding>
+            <element signature="method#mandlebrotConverge#0;class#MandlebrotCallable#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -908,8 +909,7 @@
             <element signature="method#paintComponent#0;class#FractalPanel#0" expanded="false" />
             <element signature="method#mandlebrotConverge#0;class#FractalPanel#0" expanded="false" />
             <element signature="method#burningShipConverge#0;class#FractalPanel#0" expanded="false" />
-            <element signature="e#9979#9999#0" expanded="true" />
-            <element signature="method#testConvergences#0;class#FractalPanel#0" expanded="false" />
+            <element signature="e#9386#9406#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -932,8 +932,7 @@
             <element signature="method#paintComponent#0;class#FractalPanel#0" expanded="false" />
             <element signature="method#mandlebrotConverge#0;class#FractalPanel#0" expanded="false" />
             <element signature="method#burningShipConverge#0;class#FractalPanel#0" expanded="false" />
-            <element signature="e#9979#9999#0" expanded="true" />
-            <element signature="method#testConvergences#0;class#FractalPanel#0" expanded="false" />
+            <element signature="e#9386#9406#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -956,8 +955,7 @@
             <element signature="method#paintComponent#0;class#FractalPanel#0" expanded="false" />
             <element signature="method#mandlebrotConverge#0;class#FractalPanel#0" expanded="false" />
             <element signature="method#burningShipConverge#0;class#FractalPanel#0" expanded="false" />
-            <element signature="e#9979#9999#0" expanded="true" />
-            <element signature="method#testConvergences#0;class#FractalPanel#0" expanded="false" />
+            <element signature="e#9386#9406#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1043,33 +1041,34 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/MandlebrotCallable.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.4716008" vertical-offset="379" max-vertical-offset="2460">
-          <caret line="121" column="34" selection-start-line="121" selection-start-column="34" selection-end-line="121" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Fractal.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="555">
-          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding />
+        <state vertical-scroll-proportion="0.5298013" vertical-offset="75" max-vertical-offset="2055">
+          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="24" selection-end-column="27" />
+          <folding>
+            <element signature="method#mandlebrotConverge#0;class#MandlebrotCallable#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/FractalPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8192771" vertical-offset="2419" max-vertical-offset="3915">
-          <caret line="312" column="57" selection-start-line="312" selection-start-column="57" selection-end-line="312" selection-end-column="57" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2594" max-vertical-offset="5340">
+          <caret line="300" column="64" selection-start-line="300" selection-start-column="64" selection-end-line="300" selection-end-column="64" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#setInitialWindow#0;class#FractalPanel#0" expanded="false" />
             <element signature="method#paintComponent#0;class#FractalPanel#0" expanded="false" />
             <element signature="method#mandlebrotConverge#0;class#FractalPanel#0" expanded="false" />
             <element signature="method#burningShipConverge#0;class#FractalPanel#0" expanded="false" />
-            <element signature="e#9979#9999#0" expanded="true" />
-            <element signature="method#testConvergences#0;class#FractalPanel#0" expanded="false" />
+            <element signature="e#9386#9406#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Fractal.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.23178808" vertical-offset="0" max-vertical-offset="555">
+          <caret line="7" column="31" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="31" />
+          <folding />
         </state>
       </provider>
     </entry>

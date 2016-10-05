@@ -24,7 +24,6 @@ public class MandlebrotCallable implements Callable<Void> {
     static int frameWidth;
     static int frameHeight;
 
-
     int pixelXstart;
     int pixelXend;
 
@@ -99,12 +98,14 @@ public class MandlebrotCallable implements Callable<Void> {
         double yIncrement = graphHeight / frameHeight;
 
 
-        System.out.println("xIncrement = " + xIncrement);
-        System.out.println("yIncrement = " + yIncrement);
-        System.out.println("graphHeight = " + graphHeight);
-        System.out.println("graphWidth = " + graphWidth);
-        System.out.println("pixelX = " + pixelX);
-        System.out.println("pixelY = " + pixelY);
+        System.out.println("xIncrement = " + xIncrement +
+                " yIncrement = " + yIncrement +
+                " graphHeight = " + graphHeight +
+                " graphWidth = " + graphWidth +
+                " graphX start = " + graphXstart +
+                " slice x start " + sliceXstart +
+                " slice width " + sliceXwidth +
+                " pixelX = " + pixelX + " pixelY = " + pixelY);
 
         int aieCount = 0;
 
@@ -143,10 +144,12 @@ public class MandlebrotCallable implements Callable<Void> {
             pixelX++;
 
 
+
+
         }
 
-
         System.out.println("Pixel mod: " + pixelModCount);
+        System.out.println("pixel x end " + pixelX + " pixel y end " + pixelY);
         if (aieCount > 0) {System.out.println("*************************** aie count " + aieCount);}
 
 

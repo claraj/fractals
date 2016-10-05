@@ -83,9 +83,10 @@ public class SpeedTest {
 
 
 
-        //Test with RecursiveTask, ForkJoin pool
+        // TODO test fixedThreadPool
 
-        System.out.println("Testing RecursiveTask Fork Join Pool ");
+        System.out.println("todo test fixedThreadPool");
+
 
         long start = System.currentTimeMillis();
 
@@ -115,7 +116,6 @@ public class SpeedTest {
 
             pool.invoke(mt);
 
-
             long timeEnd = System.currentTimeMillis();
             double duration = timeEnd - timeStart;
 
@@ -125,6 +125,60 @@ public class SpeedTest {
 
         long end = System.currentTimeMillis();
         double totalDuration = (double)(end - start) / 1000;
+        System.out.println("For fixedThreadPool pool, total run time = " + totalDuration + "\n");
+
+
+
+
+
+
+
+
+
+
+
+
+        //Test with RecursiveTask, ForkJoin pool
+
+        System.out.println("Testing RecursiveTask Fork Join Pool ");
+
+        start = System.currentTimeMillis();
+
+        for (Settings s : settings) {
+
+            long timeStart = System.currentTimeMillis();
+            System.out.println();
+
+            set(s);
+
+            int[][] pixelValues = new int[Fractal.frameWidth][Fractal.frameHeight];
+
+            ForkJoinPool pool = new ForkJoinPool();
+
+            MandlebrotTask mt = new MandlebrotTask(pixelValues,
+                    0, (int)frameWidth,
+                    graphX, graphY,        //graph dimens x y start
+                    graphX, graphWidth,       //slicw x dimens
+                    graphHeight, graphWidth       //graph dimens
+            );
+
+            MandlebrotTask.frameHeight = Fractal.frameHeight;
+            MandlebrotTask.frameWidth = Fractal.frameWidth;
+            MandlebrotTask.baseGraphXstart = graphX;
+            MandlebrotTask.iterations = iterations;
+            MandlebrotTask.convergence = convergenceLimit;
+
+            pool.invoke(mt);
+
+            long timeEnd = System.currentTimeMillis();
+            double duration = timeEnd - timeStart;
+
+            System.out.println("At zoom level " + s.szoom + " time taken = " + duration/1000);
+
+        }
+
+        end = System.currentTimeMillis();
+        totalDuration = (double)(end - start) / 1000;
         System.out.println("For forkjoin pool, total run time = " + totalDuration + "\n");
 
 

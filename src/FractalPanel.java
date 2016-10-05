@@ -296,35 +296,55 @@ public class FractalPanel extends JPanel{
         private int[][] fixedThreadPool() {
 
             int[][] pixelValues = new int[Fractal.frameWidth][Fractal.frameHeight];
-            ExecutorService ex = Executors.newFixedThreadPool(5);
-
-            MandlebrotCallable mr = new MandlebrotCallable(pixelValues,
-                    0, (int)frameWidth/2,
-                    graphX, graphY,
-                    graphX, graphWidth/2,   //NO NO NO NO FIXME
-                    graphHeight, (graphWidth/2)
-            );
-
-
-
-            MandlebrotCallable mr2 = new MandlebrotCallable(pixelValues,
-                    (int)frameWidth/2, (int)frameWidth,
-                    graphX + (graphWidth/2) , graphY,
-                    graphX + (graphWidth/2), graphWidth/2,  //AND FIXME
-                    graphHeight, (graphWidth/2)
-            );
-
-
 
             MandlebrotCallable.frameHeight = Fractal.frameHeight;
-            MandlebrotCallable.frameWidth = (Fractal.frameWidth)/2;
+            MandlebrotCallable.frameWidth = (Fractal.frameWidth);
             MandlebrotCallable.iterations = iterations;
             MandlebrotCallable.convergence = convergenceTest;
 
+            System.out.println(Runtime.getRuntime().availableProcessors());
 
             ArrayList<MandlebrotCallable> tasks = new ArrayList<MandlebrotCallable>();
-            tasks.add(mr2);
-            tasks.add(mr);
+
+            int threads = 5;
+
+            ExecutorService ex = Executors.newFixedThreadPool(threads);
+
+            double sliceXgraphStart = graphX;              //Slice X graph start
+            double sliceXgraphWidth = graphWidth / threads;    // width of graph slice
+            int sliceXpixelStart = 0;                            //pixel to fill - in array, and on screen
+            int slicePixelWidth = (int)frameWidth / threads;     //width of slice, in pixels - how much of array to fill
+
+
+            System.out.println("sliceWidth graph width = " + sliceXgraphWidth);
+            System.out.println("sliceXgraphStart graph start = " + sliceXgraphStart);
+
+            System.out.println("sliceXpixelStart = " + sliceXpixelStart);
+            System.out.println("slice pixel Width = " + slicePixelWidth);
+
+            for (int t = 0 ; t < threads ; t++) {
+
+                //Divide graph into 5 vertical slices
+                MandlebrotCallable mr = new MandlebrotCallable(
+                        pixelValues,
+                        sliceXpixelStart, slicePixelWidth,       //pixels in slice - x start and width
+                        graphX, graphY,             //entire graph start x y
+                        sliceXgraphStart, sliceXgraphWidth,       //slice x start and width
+                        graphHeight, graphWidth   //size of entire graph
+                );
+//
+                tasks.add(mr);
+
+                System.out.println("sliceXpixelStart = " + sliceXpixelStart
+                        + " slice pixel Width = " + slicePixelWidth +
+                        " sliceXgraphStart graph start = " + sliceXgraphStart +
+                        " sliceWidth graph width = " + sliceXgraphWidth);
+
+
+                sliceXgraphStart = sliceXgraphStart + sliceXgraphWidth;
+                sliceXpixelStart = sliceXpixelStart + slicePixelWidth;
+
+            }
 
             try {
 
