@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
 
 /**
@@ -83,11 +85,6 @@ public class SpeedTest {
 
 
 
-        // TODO test fixedThreadPool
-
-        System.out.println("todo test fixedThreadPool");
-
-
         long start = System.currentTimeMillis();
 
         for (Settings s : settings) {
@@ -99,22 +96,51 @@ public class SpeedTest {
 
             int[][] pixelValues = new int[Fractal.frameWidth][Fractal.frameHeight];
 
-            ForkJoinPool pool = new ForkJoinPool();
+            MandlebrotCallable.frameHeight = Fractal.frameHeight;
+            MandlebrotCallable.frameWidth = (Fractal.frameWidth);
+            MandlebrotCallable.iterations = iterations;
+            MandlebrotCallable.convergence = convergenceLimit;
 
-            MandlebrotTask mt = new MandlebrotTask(pixelValues,
-                    0, (int)frameWidth,
-                    graphX, graphY,        //graph dimens x y start
-                    graphX, graphWidth,       //slicw x dimens
-                    graphHeight, graphWidth       //graph dimens
-            );
+            System.out.println(Runtime.getRuntime().availableProcessors());
 
-            MandlebrotTask.frameHeight = Fractal.frameHeight;
-            MandlebrotTask.frameWidth = Fractal.frameWidth;
-            MandlebrotTask.baseGraphXstart = graphX;
-            MandlebrotTask.iterations = iterations;
-            MandlebrotTask.convergence = convergenceLimit;
+            ArrayList<MandlebrotCallable> tasks = new ArrayList<MandlebrotCallable>();
 
-            pool.invoke(mt);
+            int threads = 5;
+
+            ExecutorService ex = Executors.newFixedThreadPool(threads);
+
+            double sliceXgraphStart = graphX;              //Slice X graph start
+            double sliceXgraphWidth = graphWidth / threads;    // width of graph slice
+            int sliceXpixelStart = 0;                            //pixel to fill - in array, and on screen
+            int slicePixelWidth = (int)frameWidth / threads;     //width of slice, in pixels - how much of array to fill
+
+            for (int t = 0 ; t < threads ; t++) {
+
+                //Divide graph into 5 vertical slices
+                MandlebrotCallable mr = new MandlebrotCallable(
+                        pixelValues,
+                        sliceXpixelStart, slicePixelWidth,       //pixels in slice - x start and width
+                        graphX, graphY,             //entire graph start x y
+                        sliceXgraphStart, sliceXgraphWidth,       //slice x start and width
+                        graphHeight, graphWidth   //size of entire graph
+                );
+//
+                tasks.add(mr);
+
+                sliceXgraphStart = sliceXgraphStart + sliceXgraphWidth;
+                sliceXpixelStart = sliceXpixelStart + slicePixelWidth;
+
+            }
+
+            try {
+                ex.invokeAll(tasks);
+            }
+
+
+            catch (Exception e) {
+                System.out.println("Exception " + e);
+            }
+
 
             long timeEnd = System.currentTimeMillis();
             double duration = timeEnd - timeStart;
@@ -125,12 +151,7 @@ public class SpeedTest {
 
         long end = System.currentTimeMillis();
         double totalDuration = (double)(end - start) / 1000;
-        System.out.println("For fixedThreadPool pool, total run time = " + totalDuration + "\n");
-
-
-
-
-
+        System.out.println("######################## For fixedThreadPool pool, total run time = " + totalDuration + "\n");
 
 
 
@@ -179,7 +200,7 @@ public class SpeedTest {
 
         end = System.currentTimeMillis();
         totalDuration = (double)(end - start) / 1000;
-        System.out.println("For forkjoin pool, total run time = " + totalDuration + "\n");
+        System.out.println("########################   For forkjoin pool, total run time = " + totalDuration + "\n");
 
 
 
@@ -207,7 +228,7 @@ public class SpeedTest {
 
         end = System.currentTimeMillis();
         totalDuration = (double)(end - start) / 1000;
-        System.out.println("For doubles, total run time = " + totalDuration);
+        System.out.println("########################   For doubles, total run time = " + totalDuration);
 
 
 
@@ -236,7 +257,7 @@ public class SpeedTest {
 
         end = System.currentTimeMillis();
         totalDuration = (double)(end - start) / 1000;
-        System.out.println("For Complex objects, total run time = " + totalDuration + "\n");
+        System.out.println("########################    For Complex objects, total run time = " + totalDuration + "\n");
 
 
 

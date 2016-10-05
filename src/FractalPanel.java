@@ -347,15 +347,13 @@ public class FractalPanel extends JPanel{
             }
 
             try {
-
-                ex.invokeAll(tasks);     /// todo second is overwriting the first, need sorting out
+                ex.invokeAll(tasks);
             }
+
 
             catch (Exception e) {
                 System.out.println("Exception " + e);
             }
-
-
 
             return pixelValues;
 

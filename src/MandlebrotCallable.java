@@ -98,14 +98,14 @@ public class MandlebrotCallable implements Callable<Void> {
         double yIncrement = graphHeight / frameHeight;
 
 
-        System.out.println("xIncrement = " + xIncrement +
-                " yIncrement = " + yIncrement +
-                " graphHeight = " + graphHeight +
-                " graphWidth = " + graphWidth +
-                " graphX start = " + graphXstart +
-                " slice x start " + sliceXstart +
-                " slice width " + sliceXwidth +
-                " pixelX = " + pixelX + " pixelY = " + pixelY);
+//        System.out.println("xIncrement = " + xIncrement +
+//                " yIncrement = " + yIncrement +
+//                " graphHeight = " + graphHeight +
+//                " graphWidth = " + graphWidth +
+//                " graphX start = " + graphXstart +
+//                " slice x start " + sliceXstart +
+//                " slice width " + sliceXwidth +
+//                " pixelX = " + pixelX + " pixelY = " + pixelY);
 
         int aieCount = 0;
 
